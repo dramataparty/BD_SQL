@@ -14,10 +14,10 @@ CREATE TABLE pessoas(
     dataNascimento DATE,
     correioEletronico VARCHAR(40),
 
-#tipo empregados(tecnico, medico) (add dat de inicio) utentes visitantes,  
-
+/*tipo empregados(tecnico, medico) (add dat de inicio) utentes visitantes,  
+*/
     CONSTRAINT ck_genero 
-        CHECK(genero=="M" or genero=="F" or genero==NULL)
+        CHECK(genero="M" or genero="F" or genero=NULL)
 
 
 );
@@ -28,13 +28,13 @@ CREATE TABLE salas (
     tipoEquipamento VARCHAR(100),
     numeroExamesSimultaneo NUMERIC(3),
 
-#tipo sala de exame e internamento
-):
+/*tipo sala de exame e internamento*/
+);
 
 CREATE TABLE relatorios(
     numeroSequencial NUMERIC(15),
     dataa DATE,
-    parecerMedico VARCHAR(9999),
+    parecerMedico VARCHAR(999),
     descricaoResultados VARCHAR(500)
 
 );
@@ -67,4 +67,4 @@ CREATE TABLE exameDiagnostico(
 );
 
 
-#fatura, horario, supervisor, diretor clinico, camas,
+/*fatura, horario, supervisor, diretor clinico, camas,*/
