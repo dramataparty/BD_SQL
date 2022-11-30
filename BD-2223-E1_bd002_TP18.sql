@@ -66,5 +66,5 @@ CREATE TABLE exameDiagnostico(
 
 );
 
-
+fsadmfsda
 /*fatura, horario, supervisor, diretor clinico, camas,*/
