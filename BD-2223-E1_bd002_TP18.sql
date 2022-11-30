@@ -66,5 +66,9 @@ CREATE TABLE exameDiagnostico(
 
 );
 
-fsadmfsda
-/*fatura, horario, supervisor, diretor clinico, camas,*/
+CREATE TABLE horario(
+   horarioA ????
+   horarioB ???? /*o que raio é um horario*/
+  
+CREATE TABLE 
+/*fatura, supervisor, diretor clinico, camas,*/
