@@ -1,8 +1,15 @@
 CREATE TABLE clinica (
   nome   VARCHAR(40)  NOT NULL,
   data_inaug DATE NOT NULL,
-  nipc NUMERIC (9),
-  phonum NUMERIC(9)
+  nipc INTEGER (9) ,
+  phonum INTEGER(9), 
+  diretor VARCHAR(40),
+  morada VARCHAR(40)
+
+
+    PRIMARY KEY(nipc)
+
+
 
 
 );
@@ -15,103 +22,99 @@ create type nempreg as VARCHAR
 
 
 CREATE TABLE pessoas(
-    nome VARCHAR(40),
+    nome VARCHAR(40) NOT NULL,
     morada VARCHAR(100),
-    telefone NUMERIC(12),
-    nif NUMERIC(9),
+    telefone INTEGER(12),
+    nif INTEGER(9) NOT NULL,
     género VARCHAR(1),
-    dataNascimento DATE,
+    dataNascimento DATE NOT NULL,
     correioEletronico VARCHAR(40),
-    tipo_pess VARCHAR(20),
+    tipo_pess VARCHAR(20) NOT NULL,
     emp  Boolean(1),
-    tipo_emp VARCHAR(20)
+    tipo_emp VARCHAR(20) NOT NULL
+
+    PRIMARY key(nif)
 
 /*tipo empregados(tecnico, medico) (add dat de inicio) utentes visitantes,  
 */
     CONSTRAINT ck_genero 
         CHECK(genero="M" or genero="F" or genero=NULL)
-
+    CONSTRAINT pk_pessoas
+        PRIMARY KEY (nome)
+    
 
 );
 
+
 CREATE TABLE salas (
-    numero NUMERIC(3),
-    piso NUMERIC (2),
-    numeroExamesSimultaneo NUMERIC(3),
+    numero INTEGER(3) NOT NULL,
+    piso INTEGER (2) NOT NULL,
+    numeroExamesSimultaneo INTEGER(3),
     tipo_geral VARCHAR(13)
+
+    PRIMARY KEY(numero)
 
 /*tipo sala de exame e internamento*/
 );
 
 CREATE TABLE relatorios(
-    numeroSequencial NUMERIC(15),
+    numeroSequencial INTEGER(15),
     data DATE,
-    parecerMedico VARCHAR(999),
     descricaoResultados VARCHAR(500),
     parec_med VARCHAR(100),
     tipoex VARCHAR(20),
+    PRIMARY KEY (numeroSequencial),
+    responsaveis VARCHAR(100),
+
+
+
 );
 
 CREATE TABLE especialidades(
-    nome VARCHAR(40),
-    sigla VARCHAR(10),
-    precoDiarioInternamento NUMERIC(9),
+    nome VARCHAR(40) NOT NULL,
+    sigla VARCHAR(10) NOT NULL,
+    precoDiarioInternamento INTEGER(9) NOT NULL,
+    PRIMARY KEY(sigla)
 
 );
 
 
 CREATE TABLE internamento(
     inicioInternamento DATE,
-    maxVisitantes NUMERIC(2),
+    maxVisitantes INTEGER(2),
+    especialidade VARCHAR(20),
+    medresp VARCHAR(30),
+
+
+    REFERENCES fatura,
+    REFERENCES medicos
+
 
 
 );
 
+CREATE TABLE supervisores(
+    FOREIGN 
+);
 
-CREATE TABLE exameDiagnostico(
-    codigo NUMERIC(10),
+
+
+
+
+
+
+
+
+CREATE TABLE exame(
+    codigo INTEGER(10),
     sigla VARCHAR(10),
-    precoNormal NUMERIC(9),
+    precoNormal INTEGER(9),
     tipo VARCHAR(30),
     periodoTempo TIME,
-    precoUrgencia NUMERIC(9), 
+    precoUrgencia INTEGER(9), 
 
 
 );
-
-Select P.tipo_emp
-FROM pessoas P
-WHERE NOT EXISTS (
-      from pessoas.tipo_emp
-      where pessoas.tipo_emp = "Médico"
-
-)
-
-Select P.tipo_pess
-FROM pessoas P
-WHERE NOT EXISTS (
-      from pessoas.tipo_pess
-      where pessoas.tipo_pess = "Utente"
-
-)
-
-Select P.tipo_pess
-FROM pessoas P
-WHERE NOT EXISTS (
-      from pessoas.tipo_pess
-      where pessoas.tipo_pess = "Visitante"
-
-)
-
-Select P.tipo_emp
-FROM pessoas P
-WHERE NOT EXISTS (
-      from pessoas.tipo_emp
-      where pessoas.tipo_emp = "Técnico"
-
-)
-
-
 
 
 
@@ -141,19 +144,6 @@ create TABLE camas (
 CREATE TABLE supervisores (
 /* ?????  */
 
-
-)
-
-CREATE TABLE  medicos(
-    /* *???? */
-)
-
-
-CREATE TABLE utentes (
-
-)
-
-CREATE TABLE visitantes (
 
 )
 
