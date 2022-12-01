@@ -70,9 +70,10 @@ CREATE TABLE exameDiagnostico(
 );
 
 CREATE TABLE horario(
-   horarioA ????
-   horarioB ???? /*o que raio é um horario*/
-  
-CREATE TABLE 
+   horarioA = SET (4) ,
+   horarioB = SET (4) /*o que raio é um horario*/
+   /* SET ? Talvez?? */
+);
+CREATE TABLE fatsup (
 /*fatura, supervisor, diretor clinico, camas,*/
- };
+);
