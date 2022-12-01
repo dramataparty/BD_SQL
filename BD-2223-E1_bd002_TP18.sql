@@ -7,6 +7,13 @@ CREATE TABLE clinica (
 
 );
 
+
+CREATE TYPE empreg as VARCHAR,
+create type nempreg as VARCHAR
+/* conflcte on what it should be */
+
+
+
 CREATE TABLE pessoas(
     nome VARCHAR(40),
     morada VARCHAR(100),
