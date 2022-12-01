@@ -27,7 +27,6 @@ CREATE TABLE pessoas(
 CREATE TABLE salas (
     numero NUMERIC(3),
     piso NUMERIC (2),
-    tipoEquipamento VARCHAR(100),
     numeroExamesSimultaneo NUMERIC(3),
     tipo_geral VARCHAR(13)
 
@@ -36,10 +35,11 @@ CREATE TABLE salas (
 
 CREATE TABLE relatorios(
     numeroSequencial NUMERIC(15),
-    dataa DATE,
+    data DATE,
     parecerMedico VARCHAR(999),
-    descricaoResultados VARCHAR(500)
-
+    descricaoResultados VARCHAR(500),
+    parec_med VARCHAR(100),
+    tipoex VARCHAR(20),
 );
 
 CREATE TABLE especialidades(
