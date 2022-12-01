@@ -1,155 +1,95 @@
 CREATE TABLE clinica (
-  nome   VARCHAR(40)  NOT NULL,
-  data_inaug DATE NOT NULL,
-  nipc INTEGER (9) ,
-  phonum INTEGER(9), 
-  diretor VARCHAR(40),
-  morada VARCHAR(40)
-
-
-    PRIMARY KEY(nipc)
-
-
-
-
-);
-
-
-CREATE TYPE empreg as VARCHAR,
-create type nempreg as VARCHAR
-/* conflcte on what it should be */
-
-
-
-CREATE TABLE pessoas(
-    nome VARCHAR(40) NOT NULL,
-    morada VARCHAR(100),
-    telefone INTEGER(12),
-    nif INTEGER(9) NOT NULL,
-    género VARCHAR(1),
-    dataNascimento DATE NOT NULL,
-    correioEletronico VARCHAR(40),
-    tipo_pess VARCHAR(20) NOT NULL,
-    emp  Boolean(1),
-    tipo_emp VARCHAR(20) NOT NULL
-
-    PRIMARY key(nif)
-
-/*tipo empregados(tecnico, medico) (add dat de inicio) utentes visitantes,  
-*/
-    CONSTRAINT ck_genero 
-        CHECK(genero="M" or genero="F" or genero=NULL)
-    CONSTRAINT pk_pessoas
-        PRIMARY KEY (nome)
     
+    nome   VARCHAR(40) UNIQUE,
+    data_inaug DATE NOT NULL,
+    email VARCHAR(40),
+    duracao DATE,
+    nipc INTEGER(9),
+    phonum INTEGER(12),
+    morada VARCHAR(40)
+
+    PRIMARY KEY (nipc)
 
 );
-
-
-CREATE TABLE salas (
-    numero INTEGER(3) NOT NULL,
-    piso INTEGER (2) NOT NULL,
-    numeroExamesSimultaneo INTEGER(3),
-    tipo_geral VARCHAR(13)
-
-    PRIMARY KEY(numero)
-
-/*tipo sala de exame e internamento*/
-);
-
-CREATE TABLE relatorios(
-    numeroSequencial INTEGER(15),
-    data DATE,
-    descricaoResultados VARCHAR(500),
-    parec_med VARCHAR(100),
-    tipoex VARCHAR(20),
-    PRIMARY KEY (numeroSequencial),
-    responsaveis VARCHAR(100),
-
-
-
-);
-
-CREATE TABLE especialidades(
-    nome VARCHAR(40) NOT NULL,
-    sigla VARCHAR(10) NOT NULL,
-    precoDiarioInternamento INTEGER(9) NOT NULL,
-    PRIMARY KEY(sigla)
-
-);
-
-
-CREATE TABLE internamento(
-    inicioInternamento DATE,
-    maxVisitantes INTEGER(2),
-    especialidade VARCHAR(20),
-    medresp VARCHAR(30),
-
-
-    REFERENCES fatura,
-    REFERENCES medicos
-
-
-
-);
-
-CREATE TABLE supervisores(
-    FOREIGN 
-);
-
-
-
-
-
-
-
-
-
-CREATE TABLE exame(
-    codigo INTEGER(10),
-    sigla VARCHAR(10),
-    precoNormal INTEGER(9),
-    tipo VARCHAR(30),
-    periodoTempo TIME,
-    precoUrgencia INTEGER(9), 
-
-
-);
-
 
 
 CREATE TABLE horario(
-   horarioA = set(),
-   horarioB = set(),/*o que raio é um horario*/
-   /* SET ? Talvez?? */
+   tipo VARCHAR(1),
+   horainicio TIME,
+   horafim TIME
+   
+);
+
+/*IS A is already done i think*/
+CREATE TABLE sala (
+    numero NUMERIC(3),
+    piso INTEGER(2),
+    numeroExamesSimultaneo INTEGER(3),
+    tipo_geral VARCHAR(13)
+
+    PRIMARY KEY (numero)
+
+);
+
+CREATE TABLE salaexame (
+    numero NUMERIC(3),
+
+    PRIMARY KEY (numero),
+    FOREIGN KEY (numero) REFERENCES sala ON DELETE CASCADE
+
 );
 
 
-/*fatura, supervisor, diretor clinico, camas,*/
-CREATE TABLE fatura (
-    cus_total int(999),
-    cus_ex int(999),
-    cus_d_i_e int(999),
-    dat_pag DATE
+CREATE TABLE salainternamento (
+    tipo VARCHAR(20),
+    nmaxcamas INTEGER(3),
+    nmaxvisitas INTEGER(3),
+    numero NUMERIC(3)
+
+    PRIMARY KEY (numero),
+    FOREIGN KEY (numero) REFERENCES sala ON DELETE CASCADE
+
+);
+
+CREATE TABLE cama (
+    num INTEGER(3)
+
+    PRIMARY KEY (num)
+
+);
 
 
-)
+/*Unsure*/
+CREATE TABLE supervisor(
+    NIF INTEGER(9)
 
-create TABLE camas (
-    numliv int(999),
-    numocc int(999)
+    PRIMARY KEY(NIF),
+    FOREIGN KEY(NIF) REFERENCES pessoas
 
-)
-
-CREATE TABLE supervisores (
-/* ?????  */
+);
 
 
-)
+CREATE TABLE relatorio(
+    dat DATE,
+    tipoexame VARCHAR(20),
+    parecerMedico VARCHAR(100),
+    descricaoresultados VARCHAR(200),
+    nsequencial INTEGER(10),
+    medicoresponsavel VARCHAR(30),    /*Unsure*/
 
-CREATE TABLE empregados (
-
-)
-/* O QUE É O DIRETOR CLINICO?*/ 
+    PRIMARY KEY(nsequencial)
+);
 
 
+
+/* -----------------------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+/* comandos para inserir dados */ 
