@@ -120,6 +120,11 @@ CREATE TABLE horario(
 
 /*fatura, supervisor, diretor clinico, camas,*/
 CREATE TABLE fatura (
+    cus_total int(999),
+    cus_ex int(999),
+    cus_d_i_e int(999),
+    dat_pag DATE
+
 
 )
 
