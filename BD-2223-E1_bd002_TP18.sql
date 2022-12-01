@@ -85,10 +85,32 @@ CREATE TABLE relatorio(
 /* -----------------------------------------------------------------------------*/
 
 
+CREATE TABLE exame (
+  sigla VARCHAR(10)
+  tipo VARCHAR(40)
+  prec_normal NUMERIC(6,2)
+  codigo NUMERIC(10)
+  prec_hora_urg NUMERIC(6,2)
+  periodo_tempo DATE
+
+  PRIMARY KEY (codigo)
+CREATE TABLE fatura (
+    cus_total NUMERIC(999),
+    cus_ex NUMERIC(999),
+    cus_d_i_e NUMERIC(999),
+    dat_pag DATE
+    n_squencial NUMERIC(10)
+
+    PRIMARY KEY (n_squencial)
+CREATE TABLE internamento(
+    periodoInternamento DATE,
+    maxVisitantes NUMERIC(2),
+    n_camas NUMERIC(2)
+    especialidade WARCHAR(40)
+    medico_respon WARCHAR(40)
 
 
-
-
+/* -----------------------------------------------------------------------------*/
 
 
 
