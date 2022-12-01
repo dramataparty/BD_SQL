@@ -15,7 +15,9 @@ CREATE TABLE pessoas(
     género VARCHAR(1),
     dataNascimento DATE,
     correioEletronico VARCHAR(40),
-    tipo VARCHAR(20)
+    tipo_pess VARCHAR(20),
+    emp  Boolean(1),
+    tipo_emp VARCHAR(20)
 
 /*tipo empregados(tecnico, medico) (add dat de inicio) utentes visitantes,  
 */
@@ -69,6 +71,42 @@ CREATE TABLE exameDiagnostico(
 
 
 );
+
+Select P.tipo_emp
+FROM pessoas P
+WHERE NOT EXISTS (
+      from pessoas.tipo_emp
+      where pessoas.tipo_emp = "Médico"
+
+)
+
+Select P.tipo_pess
+FROM pessoas P
+WHERE NOT EXISTS (
+      from pessoas.tipo_pess
+      where pessoas.tipo_pess = "Utente"
+
+)
+
+Select P.tipo_pess
+FROM pessoas P
+WHERE NOT EXISTS (
+      from pessoas.tipo_pess
+      where pessoas.tipo_pess = "Visitante"
+
+)
+
+Select P.tipo_emp
+FROM pessoas P
+WHERE NOT EXISTS (
+      from pessoas.tipo_emp
+      where pessoas.tipo_emp = "Técnico"
+
+)
+
+
+
+
 
 CREATE TABLE horario(
    horarioA =,
