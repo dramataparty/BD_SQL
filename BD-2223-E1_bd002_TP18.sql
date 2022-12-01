@@ -2,6 +2,8 @@ CREATE TABLE clinica (
   nome   VARCHAR(40)  NOT NULL,
   data_inaug DATE NOT NULL,
   nipc NUMERIC (9),
+  phonum NUMERIC(9)
+
 
 );
 
@@ -27,6 +29,7 @@ CREATE TABLE salas (
     piso NUMERIC (2),
     tipoEquipamento VARCHAR(100),
     numeroExamesSimultaneo NUMERIC(3),
+    tipo_geral VARCHAR(13)
 
 /*tipo sala de exame e internamento*/
 );
@@ -72,3 +75,4 @@ CREATE TABLE horario(
   
 CREATE TABLE 
 /*fatura, supervisor, diretor clinico, camas,*/
+ };
