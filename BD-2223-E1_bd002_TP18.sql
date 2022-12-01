@@ -131,5 +131,19 @@ CREATE TABLE supervisores (
 
 )
 
+CREATE TABLE  medicos(
+
+)
+CREATE TABLE utentes (
+
+)
+
+CREATE TABLE visitantes (
+
+)
+
+CREATE TABLE empregados (
+
+)
 /* O QUE É O DIRETOR CLINICO?*/ 
 
