@@ -112,6 +112,11 @@ CREATE TABLE internamento(
 
 /* -----------------------------------------------------------------------------*/
 
+CREATE TABLE especialidades(
+    nome VARCHAR(40) NOT NULL,
+    sigla VARCHAR(10) NOT NULL,
+    precoDiarioInternamento INTEGER(9) NOT NULL,
+    PRIMARY KEY(sigla)
 
-
+);
 /* comandos para inserir dados */ 
