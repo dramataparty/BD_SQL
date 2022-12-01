@@ -15,6 +15,7 @@ CREATE TABLE pessoas(
     género VARCHAR(1),
     dataNascimento DATE,
     correioEletronico VARCHAR(40),
+    tipo VARCHAR(20)
 
 /*tipo empregados(tecnico, medico) (add dat de inicio) utentes visitantes,  
 */
@@ -70,10 +71,27 @@ CREATE TABLE exameDiagnostico(
 );
 
 CREATE TABLE horario(
-   horarioA = SET (4) ,
-   horarioB = SET (4) /*o que raio é um horario*/
+   horarioA =,
+   horarioB = ,/*o que raio é um horario*/
    /* SET ? Talvez?? */
 );
-CREATE TABLE fatsup (
+
+
+
+
+
 /*fatura, supervisor, diretor clinico, camas,*/
-);
+CREATE TABLE fatura (
+
+)
+
+create TABLE camas (
+
+)
+
+CREATE TABLE supervisores (
+
+)
+
+/* O QUE É O DIRETOR CLINICO?*/ 
+
