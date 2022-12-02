@@ -210,7 +210,7 @@ CREATE pessoa (
     phonenumber INTEGER(12),
     morada VARCHAR(40),
     genero VARCHAR(1),
-    nic INTEGER(9),
+    nic INTEGER(9)
 
     PRIMARY KEY (nif)
 
@@ -363,7 +363,7 @@ CREATE TABLE relatorio(
     nsequencial INTEGER(10),
     medicoresponsavel INTEGER(9),    /*Unsure*/
 
-    PRIMARY KEY(nsequencial)
+    PRIMARY KEY(nsequencial),
     FOREIGN KEY (medicoresponsavel) REFERENCES medico(nif) ON DELETE NO ACTION 
 );
 
