@@ -352,8 +352,11 @@ CREATE TABLE especialidade(
 /*Unfinished*/
 /*relatorio - especialidade*/
 CREATE TABLE re_Responsaveis_Es(
-    nome VARCHAR(40)
-    
+    nome_espec VARCHAR(40) REFERENCES especialidade(nome),
+    num_seq INTEGER(10) REFERENCES relatorio(nsequencial)
+
+
+
 
 );
 
