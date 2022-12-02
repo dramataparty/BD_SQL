@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS=1;
 
 
 CREATE TABLE clinica (
-
+    
     nome   VARCHAR(40) UNIQUE,
     data_inaug DATE NOT NULL,
     email VARCHAR(40),
@@ -36,17 +36,10 @@ CREATE TABLE clinica (
 );
 
 
-CREATE TABLE horario(
-   tipo VARCHAR(1),
-   horainicio TIME,
-   horafim TIME
-
-);
-
 /*Unsure*/
 /*Clinica - Horario*/
 CREATE TABLE clTemHo(
-
+    
     tipo VARCHAR(1) NOT NULL,
     nipc INTEGER(9),
 
@@ -71,7 +64,7 @@ CREATE TABLE ClTemSa(
     numerosala INTEGER(4),
 
     PRIMARY KEY (nipc,numero),
-    FOREIGN KEY (nipc) REFERENCES clinica,
+    FOREIGN KEY (nipc) REFERENCES clinica(nipc),
     FOREIGN KEY (numerosala) REFERENCES sala(numerosala)
 
 );
@@ -81,7 +74,8 @@ CREATE TABLE sala (
     numerosala INTEGER(4),
     piso INTEGER(2),
     numeroExamesSimultaneo INTEGER(3),
-    tipo_geral VARCHAR(13)
+    tipo_geral VARCHAR(13),
+
     PRIMARY KEY (numerosala)
 
 );
@@ -99,7 +93,7 @@ CREATE TABLE salainternamento (
     tipo VARCHAR(20),
     nmaxcamas INTEGER(3),
     nmaxvisitas INTEGER(3),
-    numerosala INTEGER(4)
+    numerosala INTEGER(4),
 
     PRIMARY KEY (numerosala),
     FOREIGN KEY (numerosala) REFERENCES sala(numerosala) ON DELETE CASCADE
@@ -130,8 +124,8 @@ CREATE TABLE ClTrabalhaSu(
     nif INTEGER(9),
 
     PRIMARY KEY (nipc,nif),
-    FOREIGN KEY (nipc) REFERENCES clinica,
-    FOREIGN KEY (nif) REFERENCES supervisor
+    FOREIGN KEY (nipc) REFERENCES clinica(nipc),
+    FOREIGN KEY (nif) REFERENCES supervisor(nif)
 );
 
 /*Unsure*/
@@ -139,7 +133,7 @@ CREATE TABLE supervisor(
     nif INTEGER(9)
 
     PRIMARY KEY(NIF),
-    FOREIGN KEY(NIF) REFERENCES pessoas ON DELETE NO ACTION
+    FOREIGN KEY(NIF) REFERENCES pessoas(nif) ON DELETE NO ACTION
 
 );
 
@@ -154,8 +148,8 @@ CREATE TABLE exTemCl(
     nipc INTEGER(9),
 
     PRIMARY KEY (codigo,nipc),
-    FOREIGN KEY (nipc) REFERENCES clinica ON DELETE CASCADE,
-    FOREIGN KEY (codigo) REFERENCES exame ON DELETE CASCADE
+    FOREIGN KEY (nipc) REFERENCES clinica(nipc) ON DELETE CASCADE,
+    FOREIGN KEY (codigo) REFERENCES exame(codigo) ON DELETE CASCADE
 );
 
 CREATE TABLE exame (
@@ -177,7 +171,7 @@ CREATE TABLE fatura (
     n_squencial NUMERIC(10),
 
     PRIMARY KEY (n_squencial),
-    FOREIGN KEY (n_squencial) REFERENCES internamento ON DELETE CASCADE
+    FOREIGN KEY (n_squencial) REFERENCES internamento(n_sequencial) ON DELETE CASCADE
 );
 
 /*fatura - internamento */
@@ -185,7 +179,7 @@ CREATE TABLE faEfetuaIn(
     n_squencial NUMERIC(10),
 
     PRIMARY KEY (n_squencial),
-    FOREIGN KEY (n_squencial) REFERENCES internamento
+    FOREIGN KEY (n_squencial) REFERENCES internamento(n_sequencial)
 )
 
 CREATE TABLE internamento(
@@ -207,7 +201,7 @@ CREATE TABLE internamento(
 
 
 /*IS A cliente/empregado*/
-CREATE  TABLE pessoa (
+CREATE pessoa (
 
     nome VARCHAR(40),
     data_nasc DATE,
@@ -216,8 +210,10 @@ CREATE  TABLE pessoa (
     phonenumber INTEGER(12),
     morada VARCHAR(40),
     genero VARCHAR(1),
-    nic INTEGER(9)
+    nic INTEGER(9),
+
     PRIMARY KEY (nif)
+
 );
 
 
@@ -228,7 +224,7 @@ CREATE TABLE cliente (
     nif INTEGER(9),
 
     PRIMARY KEY (nif),
-    FOREIGN KEY (nif) REFERENCES pessoa ON DELETE CASCADE
+    FOREIGN KEY (nif) REFERENCES pessoa(nif) ON DELETE CASCADE
 
 );
 
@@ -240,7 +236,7 @@ CREATE TABLE visitante (
     nif INTEGER(9),
 
     PRIMARY KEY (nif),
-    FOREIGN KEY (nif) REFERENCES cliente ON DELETE CASCADE
+    FOREIGN KEY (nif) REFERENCES cliente(nif) ON DELETE CASCADE
 );
 
 
@@ -251,7 +247,7 @@ CREATE TABLE voluntario(
     nif INTEGER(9),
 
     PRIMARY KEY(nif),
-    FOREIGN KEY (nif) REFERENCES visitante ON DELETE CASCADE
+    FOREIGN KEY (nif) REFERENCES visitante(nif) ON DELETE CASCADE
 );
 
 
@@ -261,7 +257,7 @@ CREATE TABLE naovoluntario (
     nif INTEGER(9),
 
     PRIMARY KEY(nif),
-    FOREIGN KEY(nif) REFERENCES visitante ON DELETE CASCADE
+    FOREIGN KEY(nif) REFERENCES visitante(nif) ON DELETE CASCADE
 );
 
 /*naovoluntario - utente*/
@@ -281,7 +277,7 @@ CREATE TABLE utente (
     nif INTEGER(9),
 
     PRIMARY KEY (nif),
-    FOREIGN KEY (nif) REFERENCES cliente ON DELETE CASCADE
+    FOREIGN KEY (nif) REFERENCES cliente(nif) ON DELETE CASCADE
 
 );
 
@@ -306,7 +302,7 @@ CREATE TABLE empregado (
     datainicio DATE,
 
     PRIMARY KEY (nif),
-    FOREIGN KEY (nif) REFERENCES pessoa ON DELETE CASCADE
+    FOREIGN KEY (nif) REFERENCES pessoa(nif) ON DELETE CASCADE
 
 );
 
@@ -317,7 +313,7 @@ CREATE TABLE medico (
     nif INTEGER(9),
 
     PRIMARY KEY (nif),
-    FOREIGN KEY (nif) REFERENCES empregado ON DELETE CASCADE
+    FOREIGN KEY (nif) REFERENCES empregado(nif) ON DELETE CASCADE
 
 );
 
@@ -328,14 +324,13 @@ CREATE TABLE meReportaDC(
     nif INTEGER(9),
 
     PRIMARY KEY (nif),
-    FOREIGN KEY (nif) REFERENCES empregado ON DELETE CASCADE
+    FOREIGN KEY (nif) REFERENCES empregado(nif) ON DELETE CASCADE
 );
 
 
 /*Unfinished*/
 /*especialidade - medico*/
 CREATE TABLE esTemMedico(
-    nome VARCHAR(20)
 
 );
 
@@ -355,8 +350,7 @@ CREATE TABLE especialidade(
 
 /*Unfinished*/
 /*relatorio - especialidade*/
-CREATE TABLE Responsaveis(
-    nome VARCHAR(20),
+CREATE TABLE reResponsaveisEs(
 
 );
 
@@ -383,7 +377,7 @@ CREATE TABLE tecnico (
     habilitacao VARCHAR(30),
 
     PRIMARY KEY (nif),
-    FOREIGN KEY (nif) REFERENCES empregado ON DELETE CASCADE
+    FOREIGN KEY (nif) REFERENCES empregado(nif) ON DELETE CASCADE
 
 );
 
@@ -395,7 +389,7 @@ CREATE TABLE diretorclinico (
     nif INTEGER(9),
 
     PRIMARY KEY (nif),
-    FOREIGN KEY (nif) REFERENCES empregado ON DELETE CASCADE
+    FOREIGN KEY (nif) REFERENCES empregado(nif) ON DELETE CASCADE
 );
 
 
