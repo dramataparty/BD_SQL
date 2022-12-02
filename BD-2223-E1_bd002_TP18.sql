@@ -65,7 +65,7 @@ CREATE TABLE ClTemSa(
 
     PRIMARY KEY (nipc,numero),
     FOREIGN KEY (nipc) REFERENCES clinica,
-    FOREIGN KEY (numerosala) REFERENCES sala
+    FOREIGN KEY (numerosala) REFERENCES sala(numerosala)
 
 );
 
@@ -75,7 +75,6 @@ CREATE TABLE sala (
     piso INTEGER(2),
     numeroExamesSimultaneo INTEGER(3),
     tipo_geral VARCHAR(13)
-
     PRIMARY KEY (numerosala)
 
 );
@@ -84,7 +83,7 @@ CREATE TABLE salaexame (
     numerosala INTEGER(4),
 
     PRIMARY KEY (numerosala),
-    FOREIGN KEY (numerosala) REFERENCES sala ON DELETE CASCADE
+    FOREIGN KEY (numerosala) REFERENCES sala(numerosala) ON DELETE CASCADE
 
 );
 
@@ -96,7 +95,7 @@ CREATE TABLE salainternamento (
     numerosala INTEGER(4)
 
     PRIMARY KEY (numerosala),
-    FOREIGN KEY (numerosala) REFERENCES sala ON DELETE CASCADE
+    FOREIGN KEY (numerosala) REFERENCES sala(numerosala) ON DELETE CASCADE
 
 );
 
@@ -107,7 +106,7 @@ CREATE TABLE SaTemCa(
 
     PRIMARY KEY (numerosala,numerocama),
     FOREIGN KEY (numerosala) REFERENCES salainternamento,
-    FOREIGN KEY (numerocama) REFERENCES cama
+    FOREIGN KEY (numerocama) REFERENCES cama()
 );
 
 
