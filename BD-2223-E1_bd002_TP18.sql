@@ -13,6 +13,12 @@ CREATE TABLE clinica (
 );
 
 
+
+/*Clinica - Horario*/
+CREATE TABLE ClTemHo(
+
+);
+
 CREATE TABLE horario(
    tipo VARCHAR(1),
    horainicio TIME,
@@ -94,7 +100,8 @@ CREATE TABLE exame (
   periodo_tempo DATE
 
   PRIMARY KEY (codigo)
-)
+);
+
 CREATE TABLE fatura (
     cus_total NUMERIC(999),
     cus_ex NUMERIC(999),
@@ -103,17 +110,20 @@ CREATE TABLE fatura (
     n_squencial NUMERIC(10)
 
     PRIMARY KEY (n_squencial)
-)
+);
+
 CREATE TABLE internamento(
     periodoInternamento DATE,
     maxVisitantes NUMERIC(2),
     n_camas NUMERIC(2),
-    especialidade WARCHAR(40),
-    medico_respon WARCHAR(40)
-)
+    especialidade VARCHAR(40),
+    medico_respon VARCHAR(40)
+);
 
 
 /* -----------------------------------------------------------------------------*/
+
+
 
 
 CREATE TABLE clientes (
@@ -132,7 +142,7 @@ CREATE TABLE clientes (
 
 );
 
-create TABLE empregados (
+CREATE TABLE empregados (
     nome   VARCHAR(40) UNIQUE,
     data_nasc DATE NOT NULL,
     data_inic DATE NOT NULL,
@@ -149,7 +159,7 @@ create TABLE empregados (
 );
 
 
-create TABLE medicos (
+CREATE TABLE medicos (
     nome   VARCHAR(40) UNIQUE,
     data_nasc DATE NOT NULL,
     data_inic DATE NOT NULL,
@@ -165,7 +175,7 @@ create TABLE medicos (
 
 );
 
-create TABLE tecnicos (
+CREATE TABLE tecnicos (
     nome   VARCHAR(40) UNIQUE,
     data_nasc DATE NOT NULL,
     data_inic DATE NOT NULL,
