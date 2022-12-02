@@ -332,6 +332,13 @@ CREATE TABLE esTemMedico(
 
 /*Unfinished*/
 CREATE TABLE especialidade(
+    nome VARCHAR(10),
+    sigla VARCHAR(10),
+    parecer VARCHAR(122),
+    numseq NUMERIC(3),
+    resdec VARCHAR(122),
+
+
 
 );
 
