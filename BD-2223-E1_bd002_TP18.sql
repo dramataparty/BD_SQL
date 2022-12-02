@@ -403,3 +403,9 @@ CREATE TABLE diretorclinico (
 
 
 /* comandos para inserir dados */ 
+INSERT INTO clinica (nome,data_inaug,email,duracao,nipc,phonum,morada)
+VALUES ("Care4u", "2022-01-02", "coisas","2022-01-02", 999222111, 916234543,"rua do céu nº77");
+INSERT INTO clTemHo (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+INSERT INTO ClTemSa (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
