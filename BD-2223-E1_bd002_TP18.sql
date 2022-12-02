@@ -83,12 +83,11 @@ CREATE TABLE cama (
 );
 
 
-/*Unsure*/
 CREATE TABLE supervisor(
     nif INTEGER(9)
 
-    PRIMARY KEY(NIF),
-    FOREIGN KEY(NIF) REFERENCES pessoas(nif) ON DELETE NO ACTION
+    PRIMARY KEY(nif),
+    FOREIGN KEY(nif) REFERENCES pessoas(nif) ON DELETE NO ACTION
 
 );
 
@@ -120,7 +119,7 @@ CREATE TABLE fatura (
     n_squencial NUMERIC(10),
 
     PRIMARY KEY (n_squencial),
-    FOREIGN KEY (n_squencial) REFERENCES internamento(n_sequencial) ON DELETE CASCADE
+    FOREIGN KEY (n_squencial) REFERENCES internamento(n_squencial) ON DELETE CASCADE
 );
 
 
@@ -242,15 +241,15 @@ CREATE TABLE medico (
 
 
 
-/*Unfinished*/
 CREATE TABLE especialidade(
     nome VARCHAR(10),
     sigla VARCHAR(10),
     parecer VARCHAR(122),
     numseq NUMERIC(3),
     resdec VARCHAR(122),
-    
-    PRIMARY KEY (nome)
+
+
+
 );
 
 
@@ -261,10 +260,10 @@ CREATE TABLE relatorio(
     tipoexame VARCHAR(20),
     parecerMedico VARCHAR(100),
     descricaoresultados VARCHAR(200),
-    nsequencial INTEGER(10),
+    nsquencial INTEGER(10),
     medicoresponsavel INTEGER(9),    /*Unsure*/
 
-    PRIMARY KEY(nsequencial),
+    PRIMARY KEY(nsquencial),
     FOREIGN KEY (medicoresponsavel) REFERENCES medico(nif) ON DELETE NO ACTION 
 );
 
@@ -300,32 +299,6 @@ CREATE TABLE diretorclinico (
 
 /*Associaões---------------------------------------------*/
 
-/*Unfinished*/
-/*relatorio - especialidade*/
-CREATE TABLE re_Responsaveis_Es(
-    nome_espec VARCHAR(40) REFERENCES especialidade(nome),
-    num_seq INTEGER(10) REFERENCES relatorio(nsequencial)
-
-
-
-
-);
-
-/*Unfinished*/
-/*especialidade - medico*/
-CREATE TABLE esTemMedico(
-    nome VARCHAR(20),
-
-);
-
-/*Unfinished*/
-/*medico - diretorclinico*/
-CREATE TABLE meReportaDC(
-    nif INTEGER(9),
-
-    PRIMARY KEY (nif),
-    FOREIGN KEY (nif) REFERENCES empregado(nif) ON DELETE CASCADE
-);
 
 
 /*naovoluntario - utente*/
@@ -339,7 +312,7 @@ CREATE TABLE nvRelacaocomUt(
     FOREIGN KEY (utnif) REFERENCES utente(nif)
 );
 
-/*Unsure*/
+
 /*Clinica - Horario*/
 CREATE TABLE clTemHo(
     
@@ -352,17 +325,6 @@ CREATE TABLE clTemHo(
 
 );
 
-/*Clinica - Sala*/
-CREATE TABLE ClTemSa(
-    
-    nipc INTEGER(9),
-    numerosala INTEGER(4),
-
-    PRIMARY KEY (nipc,numero),
-    FOREIGN KEY (nipc) REFERENCES clinica(nipc),
-    FOREIGN KEY (numerosala) REFERENCES sala(numerosala)
-
-);
 
 
 /*Salainternamento - Cama*/
@@ -410,32 +372,23 @@ CREATE TABLE faEfetuaIn(
     n_squencial NUMERIC(10),
 
     PRIMARY KEY (n_squencial),
-    FOREIGN KEY (n_squencial) REFERENCES internamento(n_sequencial)
+    FOREIGN KEY (n_squencial) REFERENCES internamento(n_squencial)
 );
 
 
-/*Unfinished*/
-/*relatorio - especialidade*/
-CREATE TABLE reResponsaveisEs(
-
-);
 
 
-/*Unfinished*/
+
 /*medico - diretorclinico*/
 CREATE TABLE meReportaDC(
-    nif INTEGER(9),
+    nifmed INTEGER(9),
+    nifdc INTEGER(9),
 
-    PRIMARY KEY (nif),
-    FOREIGN KEY (nif) REFERENCES empregado(nif) ON DELETE CASCADE
+    PRIMARY KEY (nifmed,nifdc),
+    FOREIGN KEY (nifmed) REFERENCES medico(nif),
+    FOREIGN KEY (nifdc) REFERENCES diretorclinico(nif)
 );
 
-
-/*Unfinished*/
-/*especialidade - medico*/
-CREATE TABLE esTemMedico(
-
-);
 
 
 /*Utente - medico*/
@@ -463,16 +416,6 @@ CREATE TABLE nvRelacaocomUt(
 );
 
 
-
-/*fatura - internamento */
-CREATE TABLE faEfetuaIn(
-    n_squencial NUMERIC(10),
-
-    PRIMARY KEY (n_squencial),
-    FOREIGN KEY (n_squencial) REFERENCES internamento(n_sequencial)
-);
-
-
 /*exame - clinica*/
 CREATE TABLE exTemCl(
     codigo NUMERIC(10),
@@ -484,18 +427,6 @@ CREATE TABLE exTemCl(
 );
 
 
-/*Unsure*/
-/*Clinica - Horario*/
-CREATE TABLE clTemHo(
-    
-    tipo VARCHAR(1) NOT NULL,
-    nipc INTEGER(9),
-
-    PRIMARY KEY (nipc),
-    FOREIGN KEY (tipo) REFERENCES horario(tipo),
-    FOREIGN KEY (nipc) REFERENCES clinica(nipc)
-
-);
 
 
 /*Clinica - Sala*/
@@ -510,43 +441,80 @@ CREATE TABLE ClTemSa(
 
 );
 
-/*Salainternamento - Cama*/
-CREATE TABLE SaTemCa(
-    numerosala INTEGER(4),
-    numerocama INTEGER(5),
 
-    PRIMARY KEY (numerosala,numerocama),
-    FOREIGN KEY (numerosala) REFERENCES salainternamento(numerosala),
-    FOREIGN KEY (numerocama) REFERENCES cama(numerocama)
+
+
+/*salas - exame*/
+CREATE TABLE saRealizadosEx(
+    
+    tipodesala VARCHAR(20),
+    numerosala INTEGER(4),
+    codigo NUMERIC(10),
+
+    PRIMARY KEY (numerosala,codigo),
+    FOREIGN KEY (numerosala) REFERENCES sala(numerosala),
+    FOREIGN KEY (codigo) REFERENCES exame(codigo)
 );
 
 
-/*Clinica - Supervisor*/
-CREATE TABLE ClTrabalhaSu(
-    nipc INTEGER(9),
+/*salainternamento - internamento*/
+CREATE TABLE siOcorreIn(
+
+    numerosala INTEGER(4),
+    n_squencial NUMERIC(10),
+
+    PRIMARY KEY (numerosala,n_squencial),
+    FOREIGN KEY (numerosala) REFERENCES salainternamento(numerosala),
+    FOREIGN KEY (n_squencial) REFERENCES internamento(n_squencial)
+
+);
+
+
+/*visitante - internamento*/
+CREATE TABLE viVisitaIn(
+    
+    periodo_tempo TIME,
+    carater_visita VARCHAR(50),
+    n_squencial NUMERIC(10),
     nif INTEGER(9),
 
-    PRIMARY KEY (nipc,nif),
-    FOREIGN KEY (nipc) REFERENCES clinica(nipc),
-    FOREIGN KEY (nif) REFERENCES supervisor(nif)
+    PRIMARY KEY (n_squencial,nif),
+    FOREIGN KEY (n_squencial) REFERENCES internamento(n_squencial),
+    FOREIGN KEY (nif) REFERENCES visitante(nif)
 );
 
 
+/*utente - internamento*/
+CREATE TABLE utInternadoIn(
+    
+    n_squencial NUMERIC(10),
+    nif INTEGER(9),
+
+    PRIMARY KEY (n_squencial,nif),
+    FOREIGN KEY (n_squencial) REFERENCES internamento(n_squencial),
+    FOREIGN KEY (nif) REFERENCES utente(nif)
+);
 
 
+/*medico - supervisor*/
+CREATE TABLE meReportaSu(
+    nifsu INTEGER(9),
+    nifmed INTEGER(9),
 
-/* comandos para inserir dados */ 
-INSERT INTO clinica (nome,data_inaug,email,duracao,nipc,phonum,morada)
-VALUES ("Care4u", "2022-01-02", "coisas","2022-01-02", 999222111, 916234543,"rua do céu nº77");
-INSERT INTO clTemHo (tipo,nipc)
-VALUES ("E",892553228);
-INSERT INTO ClTemSa (nipc,numsala)
-VALUES (443229004,2020);
-INSERT INTO cama (numerocama)
-VALUES (34);
-INSERT INTO horario(tipo, horainicio,horafim)
-VALUES ("E",14,16);
-INSERT INTO empregado (NIF,datainicio)
-VALUES (443229004,"2022-01-02");
-INSERT INTO Supervisor(NIF)
-VALUES (443229004);
+    PRIMARY KEY (nifsu,nifmed),
+    FOREIGN KEY (nifsu) REFERENCES supervisor(nif),
+    FOREIGN KEY (nifmed) REFERENCES medico(nif)
+);
+
+/*medico - especialidade*/
+
+CREATE TABLE meTemEs(
+
+    Data_inicio DATE,
+    nome VARCHAR(10),
+    nifmed INTEGER(9),
+
+    PRIMARY KEY (nome,nifmed),
+    FOREIGN KEY (nome) REFERENCES especialidade(nome),
+    FOREIGN KEY (nifmed) REFERENCES medico(nif)
+);
