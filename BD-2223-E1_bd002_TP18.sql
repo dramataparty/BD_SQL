@@ -60,7 +60,7 @@ CREATE TABLE cama (
 
 CREATE TABLE clientes (
     nome   VARCHAR(40) UNIQUE,
-    data_inaug DATE NOT NULL,
+    data_nasc DATE NOT NULL,
     email VARCHAR(40),
     nif INTEGER(9),
     phonum INTEGER(12),
@@ -73,7 +73,8 @@ CREATE TABLE clientes (
 
 create TABLE empregados (
     nome   VARCHAR(40) UNIQUE,
-    data_inaug DATE NOT NULL,
+    data_nasc DATE NOT NULL,
+    data_inic DATE NOT NULL,
     email VARCHAR(40),
     nif INTEGER(9),
     phonum INTEGER(12),
