@@ -249,9 +249,8 @@ CREATE TABLE especialidade(
     parecer VARCHAR(122),
     numseq NUMERIC(3),
     resdec VARCHAR(122),
-
-
-
+    
+    PRIMARY KEY (nome)
 );
 
 
