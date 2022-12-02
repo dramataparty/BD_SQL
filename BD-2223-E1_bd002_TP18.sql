@@ -440,22 +440,6 @@ CREATE TABLE ClTemSa(
 
 );
 
-
-
-
-/*salas - exame*/
-CREATE TABLE saRealizadosEx(
-    
-    tipodesala VARCHAR(20),
-    numerosala INTEGER(4),
-    codigo NUMERIC(10),
-
-    PRIMARY KEY (numerosala,codigo),
-    FOREIGN KEY (numerosala) REFERENCES sala(numerosala),
-    FOREIGN KEY (codigo) REFERENCES exame(codigo)
-);
-
-
 /*salainternamento - internamento*/
 CREATE TABLE siOcorreIn(
 
