@@ -22,30 +22,37 @@ SET FOREIGN_KEY_CHECKS=1;
 
 
 CREATE TABLE clinica (
-    
+
     nome   VARCHAR(40) UNIQUE,
     data_inaug DATE NOT NULL,
     email VARCHAR(40),
     duracao DATE,
     nipc INTEGER(9),
     phonum INTEGER(12),
-    morada VARCHAR(40)
+    morada VARCHAR(40),
 
     PRIMARY KEY (nipc)
 
 );
 
 
+CREATE TABLE horario(
+   tipo VARCHAR(1),
+   horainicio TIME,
+   horafim TIME
+
+);
+
 /*Unsure*/
 /*Clinica - Horario*/
 CREATE TABLE clTemHo(
-    
+
     tipo VARCHAR(1) NOT NULL,
     nipc INTEGER(9),
 
     PRIMARY KEY (nipc),
-    FOREIGN KEY (tipo) REFERENCES horario,
-    FOREIGN KEY (nipc) REFERENCES clinica
+    FOREIGN KEY (tipo) REFERENCES horario(tipo),
+    FOREIGN KEY (nipc) REFERENCES clinica(nipc)
 
 );
 
@@ -105,8 +112,8 @@ CREATE TABLE SaTemCa(
     numerocama INTEGER(5),
 
     PRIMARY KEY (numerosala,numerocama),
-    FOREIGN KEY (numerosala) REFERENCES salainternamento,
-    FOREIGN KEY (numerocama) REFERENCES cama()
+    FOREIGN KEY (numerosala) REFERENCES salainternamento(numerosala),
+    FOREIGN KEY (numerocama) REFERENCES cama(numerocama)
 );
 
 
