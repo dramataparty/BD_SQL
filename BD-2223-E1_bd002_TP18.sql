@@ -201,7 +201,7 @@ CREATE TABLE internamento(
 
 
 /*IS A cliente/empregado*/
-CREATE pessoa (
+CREATE TABLE pessoa (
 
     nome VARCHAR(40),
     data_nasc DATE,
@@ -331,6 +331,7 @@ CREATE TABLE meReportaDC(
 /*Unfinished*/
 /*especialidade - medico*/
 CREATE TABLE esTemMedico(
+    nome VARCHAR(20),
 
 );
 
@@ -350,7 +351,9 @@ CREATE TABLE especialidade(
 
 /*Unfinished*/
 /*relatorio - especialidade*/
-CREATE TABLE reResponsaveisEs(
+CREATE TABLE re_Responsaveis_Es(
+    nome VARCHAR(40)
+    
 
 );
 
