@@ -69,7 +69,8 @@ CREATE TABLE clientes (
     tipo VARCHAR(10),
 
     PRIMARY KEY (nif),
-    PRIMARY KEY (tipo)
+    PRIMARY KEY (tipo),
+    voluntario Boolean(1)
 
 );
 
