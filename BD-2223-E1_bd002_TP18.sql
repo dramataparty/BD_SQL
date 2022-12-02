@@ -1,7 +1,5 @@
 /* ON DELETE CASCADE = UM PREDIO TEM QUARTOS, SE ELIMINARES UM PREDIO, OS QUARTOS DO PREDIO TAMBEM SE ELIMINAM*/
 
-/* ON DELETE CASCADE = UM PREDIO TEM QUARTOS, SE ELIMINARES UM PREDIO, OS QUARTOS DO PREDIO TAMBEM SE ELIMINAM*/
-
 SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS clinica;
 DROP TABLE IF EXISTS clTemHo;
@@ -37,21 +35,6 @@ CREATE TABLE clinica (
 
 );
 
-
-/*Unsure*/
-/*Clinica - Horario*/
-CREATE TABLE clTemHo(
-    
-    tipo VARCHAR(1) NOT NULL,
-    nipc INTEGER(9),
-
-    PRIMARY KEY (nipc),
-    FOREIGN KEY (tipo) REFERENCES horario(tipo),
-    FOREIGN KEY (nipc) REFERENCES clinica(nipc)
-
-);
-
-
 CREATE TABLE horario(
    tipo VARCHAR(1),
    horainicio TIME,
@@ -59,17 +42,6 @@ CREATE TABLE horario(
    
 );
 
-/*Clinica - Sala*/
-CREATE TABLE ClTemSa(
-    
-    nipc INTEGER(9),
-    numerosala INTEGER(4),
-
-    PRIMARY KEY (nipc,numero),
-    FOREIGN KEY (nipc) REFERENCES clinica(nipc),
-    FOREIGN KEY (numerosala) REFERENCES sala(numerosala)
-
-);
 
 /*IS A salaexame/salainternamento*/
 CREATE TABLE sala (
@@ -102,6 +74,53 @@ CREATE TABLE salainternamento (
 
 );
 
+
+
+
+CREATE TABLE cama (
+    numerocama INTEGER(5)
+
+    PRIMARY KEY (numerocama)
+
+);
+
+
+/*Unsure*/
+CREATE TABLE supervisor(
+    nif INTEGER(9)
+
+    PRIMARY KEY(NIF),
+    FOREIGN KEY(NIF) REFERENCES pessoas(nif) ON DELETE NO ACTION
+
+);
+
+
+/*Unsure*/
+/*Clinica - Horario*/
+CREATE TABLE clTemHo(
+    
+    tipo VARCHAR(1) NOT NULL,
+    nipc INTEGER(9),
+
+    PRIMARY KEY (nipc),
+    FOREIGN KEY (tipo) REFERENCES horario(tipo),
+    FOREIGN KEY (nipc) REFERENCES clinica(nipc)
+
+);
+
+
+/*Clinica - Sala*/
+CREATE TABLE ClTemSa(
+    
+    nipc INTEGER(9),
+    numerosala INTEGER(4),
+
+    PRIMARY KEY (nipc,numero),
+    FOREIGN KEY (nipc) REFERENCES clinica(nipc),
+    FOREIGN KEY (numerosala) REFERENCES sala(numerosala)
+
+);
+
 /*Salainternamento - Cama*/
 CREATE TABLE SaTemCa(
     numerosala INTEGER(4),
@@ -113,13 +132,6 @@ CREATE TABLE SaTemCa(
 );
 
 
-CREATE TABLE cama (
-    numerocama INTEGER(5)
-
-    PRIMARY KEY (numerocama)
-
-);
-
 /*Clinica - Supervisor*/
 CREATE TABLE ClTrabalhaSu(
     nipc INTEGER(9),
@@ -129,16 +141,6 @@ CREATE TABLE ClTrabalhaSu(
     FOREIGN KEY (nipc) REFERENCES clinica(nipc),
     FOREIGN KEY (nif) REFERENCES supervisor(nif)
 );
-
-/*Unsure*/
-CREATE TABLE supervisor(
-    nif INTEGER(9)
-
-    PRIMARY KEY(NIF),
-    FOREIGN KEY(NIF) REFERENCES pessoas(nif) ON DELETE NO ACTION
-
-);
-
 
 
 /* -----------------------------------------------------------------------------*/
