@@ -206,7 +206,7 @@ CREATE TABLE faEfetuaIn(
 
 
 /*IS A cliente/empregado*/
-CREATE pessoa (
+CREATE TABLE pessoa (
 
     nome VARCHAR(40),
     data_nasc DATE,
@@ -522,5 +522,13 @@ INSERT INTO clinica (nome,data_inaug,email,duracao,nipc,phonum,morada)
 VALUES ("Care4u", "2022-01-02", "coisas","2022-01-02", 999222111, 916234543,"rua do céu nº77");
 INSERT INTO clTemHo (tipo,nipc)
 VALUES ("E",892553228);
+INSERT INTO ClTemSa (nipc,numsala)
+VALUES (443229004,2020);
+INSERT INTO cama (numerocama)
+VALUES (34);
+INSERT INTO horario(tipo, horainicio,horafim)
+VALUES ("E",14,16);
+INSERT INTO ClTemSa (nipc,numsala)
+VALUES (443229004,2020);
 INSERT INTO ClTemSa (nipc,numsala)
 VALUES (443229004,2020);
