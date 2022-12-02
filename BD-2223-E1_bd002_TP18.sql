@@ -13,11 +13,19 @@ CREATE TABLE clinica (
 );
 
 
-
+/*Unsure*/
 /*Clinica - Horario*/
 CREATE TABLE ClTemHo(
+    
+    tipo VARCHAR(1) NOT NULL,
+    nipc INTEGER(9),
+
+    PRIMARY KEY (nipc),
+    FOREIGN KEY (tipo) REFERENCES horario,
+    FOREIGN KEY (nipc) REFERENCES clinica
 
 );
+
 
 CREATE TABLE horario(
    tipo VARCHAR(1),
@@ -26,22 +34,34 @@ CREATE TABLE horario(
    
 );
 
+/*Clinica - Sala*/
+CREATE TABLE ClTemSa(
+    
+    nipc INTEGER(9),
+    numerosala INTEGER(4),
+
+    PRIMARY KEY (nipc,numero),
+    FOREIGN KEY (nipc) REFERENCES clinica,
+    FOREIGN KEY (numerosala) REFERENCES sala
+
+);
+
 /*IS A is already done i think*/
 CREATE TABLE sala (
-    numero NUMERIC(3),
+    numerosala INTEGER(4),
     piso INTEGER(2),
     numeroExamesSimultaneo INTEGER(3),
     tipo_geral VARCHAR(13)
 
-    PRIMARY KEY (numero)
+    PRIMARY KEY (numerosala)
 
 );
 
 CREATE TABLE salaexame (
-    numero NUMERIC(3),
+    numerosala INTEGER(4),
 
-    PRIMARY KEY (numero),
-    FOREIGN KEY (numero) REFERENCES sala ON DELETE CASCADE
+    PRIMARY KEY (numerosala),
+    FOREIGN KEY (numerosala) REFERENCES sala ON DELETE CASCADE
 
 );
 
@@ -50,24 +70,44 @@ CREATE TABLE salainternamento (
     tipo VARCHAR(20),
     nmaxcamas INTEGER(3),
     nmaxvisitas INTEGER(3),
-    numero NUMERIC(3)
+    numerosala INTEGER(4)
 
-    PRIMARY KEY (numero),
-    FOREIGN KEY (numero) REFERENCES sala ON DELETE CASCADE
+    PRIMARY KEY (numerosala),
+    FOREIGN KEY (numerosala) REFERENCES sala ON DELETE CASCADE
 
 );
+
+/*Salainternamento - Cama*/
+CREATE TABLE SaTemCa(
+    numerosala INTEGER(4),
+    numerocama INTEGER(5),
+
+    PRIMARY KEY (numerosala,numerocama),
+    FOREIGN KEY (numerosala) REFERENCES salainternamento,
+    FOREIGN KEY (numerocama) REFERENCES cama
+);
+
 
 CREATE TABLE cama (
-    num INTEGER(3)
+    numerocama INTEGER(5)
 
-    PRIMARY KEY (num)
+    PRIMARY KEY (numerocama)
 
 );
 
+/*Clinica - Supervisor*/
+CREATE TABLE ClTrabalhaSu(
+    nipc INTEGER(9),
+    nif INTEGER(9),
+
+    PRIMARY KEY (nipc,nif),
+    FOREIGN KEY (nipc) REFERENCES clinica,
+    FOREIGN KEY (nif) REFERENCES supervisor
+);
 
 /*Unsure*/
 CREATE TABLE supervisor(
-    NIF INTEGER(9)
+    nif INTEGER(9)
 
     PRIMARY KEY(NIF),
     FOREIGN KEY(NIF) REFERENCES pessoas
