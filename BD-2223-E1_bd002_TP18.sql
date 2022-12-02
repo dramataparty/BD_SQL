@@ -1,5 +1,3 @@
-/* ON DELETE CASCADE = UM PREDIO TEM QUARTOS, SE ELIMINARES UM PREDIO, OS QUARTOS DO PREDIO TAMBEM SE ELIMINAM*/
-
 SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS clinica;
 DROP TABLE IF EXISTS clTemHo;
@@ -95,52 +93,6 @@ CREATE TABLE supervisor(
 );
 
 
-/*Unsure*/
-/*Clinica - Horario*/
-CREATE TABLE clTemHo(
-    
-    tipo VARCHAR(1) NOT NULL,
-    nipc INTEGER(9),
-
-    PRIMARY KEY (nipc),
-    FOREIGN KEY (tipo) REFERENCES horario(tipo),
-    FOREIGN KEY (nipc) REFERENCES clinica(nipc)
-
-);
-
-
-/*Clinica - Sala*/
-CREATE TABLE ClTemSa(
-    
-    nipc INTEGER(9),
-    numerosala INTEGER(4),
-
-    PRIMARY KEY (nipc,numero),
-    FOREIGN KEY (nipc) REFERENCES clinica(nipc),
-    FOREIGN KEY (numerosala) REFERENCES sala(numerosala)
-
-);
-
-/*Salainternamento - Cama*/
-CREATE TABLE SaTemCa(
-    numerosala INTEGER(4),
-    numerocama INTEGER(5),
-
-    PRIMARY KEY (numerosala,numerocama),
-    FOREIGN KEY (numerosala) REFERENCES salainternamento(numerosala),
-    FOREIGN KEY (numerocama) REFERENCES cama(numerocama)
-);
-
-
-/*Clinica - Supervisor*/
-CREATE TABLE ClTrabalhaSu(
-    nipc INTEGER(9),
-    nif INTEGER(9),
-
-    PRIMARY KEY (nipc,nif),
-    FOREIGN KEY (nipc) REFERENCES clinica(nipc),
-    FOREIGN KEY (nif) REFERENCES supervisor(nif)
-);
 
 
 /* -----------------------------------------------------------------------------*/
@@ -158,15 +110,7 @@ CREATE TABLE exame (
   PRIMARY KEY (codigo)
 );
 
-/*exame - clinica*/
-CREATE TABLE exTemCl(
-    codigo NUMERIC(10),
-    nipc INTEGER(9),
 
-    PRIMARY KEY (codigo,nipc),
-    FOREIGN KEY (nipc) REFERENCES clinica(nipc) ON DELETE CASCADE,
-    FOREIGN KEY (codigo) REFERENCES exame(codigo) ON DELETE CASCADE
-);
 
 CREATE TABLE fatura (
     cus_total NUMERIC(6,2),
@@ -192,13 +136,7 @@ CREATE TABLE internamento(
     PRIMARY KEY (n_squencial)
 );
 
-/*fatura - internamento */
-CREATE TABLE faEfetuaIn(
-    n_squencial NUMERIC(10),
 
-    PRIMARY KEY (n_squencial),
-    FOREIGN KEY (n_squencial) REFERENCES internamento(n_sequencial)
-)
 
 /* -----------------------------------------------------------------------------*/
 
@@ -265,16 +203,6 @@ CREATE TABLE naovoluntario (
     FOREIGN KEY(nif) REFERENCES visitante(nif) ON DELETE CASCADE
 );
 
-/*naovoluntario - utente*/
-CREATE TABLE nvRelacaocomUt(
-    
-    nvnif INTEGER(9),
-    utnif INTEGER(9),
-
-    PRIMARY KEY(nvnif,utnif),
-    FOREIGN KEY (nvnif) REFERENCES naovoluntario(nif),
-    FOREIGN KEY (utnif) REFERENCES utente(nif)
-);
 
 /*IS A cliente*/
 CREATE TABLE utente (
@@ -287,17 +215,6 @@ CREATE TABLE utente (
 );
 
 
-/*Utente - medico*/
-CREATE TABLE utTemMedico(
-
-    utnif INTEGER(9),
-    mednif INTEGER(9) NOT NULL,
-
-    PRIMARY KEY(utnif),
-    FOREIGN KEY (utnif) REFERENCES utente(nif),
-    FOREIGN KEY (mednif) REFERENCES medico(nif)
-
-);
 
 /*IS A pessoa*/
 /*IS A medico/empregado*/
@@ -323,21 +240,6 @@ CREATE TABLE medico (
 );
 
 
-/*Unfinished*/
-/*medico - diretorclinico*/
-CREATE TABLE meReportaDC(
-    nif INTEGER(9),
-
-    PRIMARY KEY (nif),
-    FOREIGN KEY (nif) REFERENCES empregado(nif) ON DELETE CASCADE
-);
-
-
-/*Unfinished*/
-/*especialidade - medico*/
-CREATE TABLE esTemMedico(
-
-);
 
 
 /*Unfinished*/
@@ -353,11 +255,6 @@ CREATE TABLE especialidade(
 );
 
 
-/*Unfinished*/
-/*relatorio - especialidade*/
-CREATE TABLE reResponsaveisEs(
-
-);
 
 
 CREATE TABLE relatorio(
@@ -398,6 +295,11 @@ CREATE TABLE diretorclinico (
 );
 
 
+
+
+
+
+/*Associaões---------------------------------------------*/
 
 /*Unfinished*/
 /*relatorio - especialidade*/
@@ -510,8 +412,125 @@ CREATE TABLE faEfetuaIn(
 
     PRIMARY KEY (n_squencial),
     FOREIGN KEY (n_squencial) REFERENCES internamento(n_sequencial)
-)
+);
 
+
+/*Unfinished*/
+/*relatorio - especialidade*/
+CREATE TABLE reResponsaveisEs(
+
+);
+
+
+/*Unfinished*/
+/*medico - diretorclinico*/
+CREATE TABLE meReportaDC(
+    nif INTEGER(9),
+
+    PRIMARY KEY (nif),
+    FOREIGN KEY (nif) REFERENCES empregado(nif) ON DELETE CASCADE
+);
+
+
+/*Unfinished*/
+/*especialidade - medico*/
+CREATE TABLE esTemMedico(
+
+);
+
+
+/*Utente - medico*/
+CREATE TABLE utTemMedico(
+
+    utnif INTEGER(9),
+    mednif INTEGER(9) NOT NULL,
+
+    PRIMARY KEY(utnif),
+    FOREIGN KEY (utnif) REFERENCES utente(nif),
+    FOREIGN KEY (mednif) REFERENCES medico(nif)
+
+);
+
+
+/*naovoluntario - utente*/
+CREATE TABLE nvRelacaocomUt(
+    
+    nvnif INTEGER(9),
+    utnif INTEGER(9),
+
+    PRIMARY KEY(nvnif,utnif),
+    FOREIGN KEY (nvnif) REFERENCES naovoluntario(nif),
+    FOREIGN KEY (utnif) REFERENCES utente(nif)
+);
+
+
+
+/*fatura - internamento */
+CREATE TABLE faEfetuaIn(
+    n_squencial NUMERIC(10),
+
+    PRIMARY KEY (n_squencial),
+    FOREIGN KEY (n_squencial) REFERENCES internamento(n_sequencial)
+);
+
+
+/*exame - clinica*/
+CREATE TABLE exTemCl(
+    codigo NUMERIC(10),
+    nipc INTEGER(9),
+
+    PRIMARY KEY (codigo,nipc),
+    FOREIGN KEY (nipc) REFERENCES clinica(nipc) ON DELETE CASCADE,
+    FOREIGN KEY (codigo) REFERENCES exame(codigo) ON DELETE CASCADE
+);
+
+
+/*Unsure*/
+/*Clinica - Horario*/
+CREATE TABLE clTemHo(
+    
+    tipo VARCHAR(1) NOT NULL,
+    nipc INTEGER(9),
+
+    PRIMARY KEY (nipc),
+    FOREIGN KEY (tipo) REFERENCES horario(tipo),
+    FOREIGN KEY (nipc) REFERENCES clinica(nipc)
+
+);
+
+
+/*Clinica - Sala*/
+CREATE TABLE ClTemSa(
+    
+    nipc INTEGER(9),
+    numerosala INTEGER(4),
+
+    PRIMARY KEY (nipc,numero),
+    FOREIGN KEY (nipc) REFERENCES clinica(nipc),
+    FOREIGN KEY (numerosala) REFERENCES sala(numerosala)
+
+);
+
+/*Salainternamento - Cama*/
+CREATE TABLE SaTemCa(
+    numerosala INTEGER(4),
+    numerocama INTEGER(5),
+
+    PRIMARY KEY (numerosala,numerocama),
+    FOREIGN KEY (numerosala) REFERENCES salainternamento(numerosala),
+    FOREIGN KEY (numerocama) REFERENCES cama(numerocama)
+);
+
+
+/*Clinica - Supervisor*/
+CREATE TABLE ClTrabalhaSu(
+    nipc INTEGER(9),
+    nif INTEGER(9),
+
+    PRIMARY KEY (nipc,nif),
+    FOREIGN KEY (nipc) REFERENCES clinica(nipc),
+    FOREIGN KEY (nif) REFERENCES supervisor(nif)
+);
 
 
 
