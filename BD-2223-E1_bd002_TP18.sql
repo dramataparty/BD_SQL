@@ -561,3 +561,194 @@ CREATE TABLE sInRealizadosEx(
     FOREIGN KEY (numerosala) REFERENCES salainternamento(numerosala),
     FOREIGN KEY (codigo) REFERENCES exame(codigo)
 );
+
+
+
+
+INSERT INTO clinica (nome,data_inaug,email,duracao,nipc,phonum,morada)
+VALUES ("Care4u", "2022-01-02", "coisas1","2022-01-02", 999222111, 916234543,"rua do céu nº77")
+INSERT INTO clinica (nome,data_inaug,email,duracao,nipc,phonum,morada)
+VALUES ("Care3u", "2022-01-03", "coisas2","2022-01-03", 333222111, 916234544,"rua do céu nº66")
+INSERT INTO clinica (nome,data_inaug,email,duracao,nipc,phonum,morada)
+VALUES ("Care2u", "2022-01-04", "coisas3","2022-01-04", 111222333, 916234545,"rua do céu nº55")
+
+
+INSERT INTO cama (numerocama)
+VALUES (34)
+INSERT INTO cama (numerocama)
+VALUES (43)
+INSERT INTO cama (numerocama)
+VALUES (12)
+
+INSERT INTO horario(tipo, horainicio,horafim)
+VALUES ("E",14,16)
+INSERT INTO horario(tipo, horainicio,horafim)
+VALUES ("I",16,14)
+INSERT INTO horario(tipo, horainicio,horafim)
+VALUES ("E",1,2)
+
+INSERT INTO empregado (NIF,datainicio)
+VALUES (443229004,"2022-01-02")
+INSERT INTO empregado (NIF,datainicio)
+VALUES (123456789,"2022-01-03")
+INSERT INTO empregado (NIF,datainicio)
+VALUES (987654321,"2022-01-04")
+
+INSERT INTO medico(nif)
+VALUE(443229004)
+INSERT INTO medico(nif)
+VALUE(123456789)
+INSERT INTO medico(nif)
+VALUE(987654321)
+
+INSERT INTO Supervisor(NIF)
+VALUES (443229004)
+INSERT INTO Supervisor(NIF)
+VALUES (567890123)
+INSERT INTO Supervisor(NIF)
+VALUES (123456789)
+
+INSERT INTO internamento(periodoInternamento,maxVisitantes,n_camas,especialidade,medico_respon,num_seq)
+VALUES ("2022-01-02",2,2,2,1234321)
+INSERT INTO internamento(periodoInternamento,maxVisitantes,n_camas,especialidade,medico_respon,num_seq)
+VALUES ("2022-01-02",2,2,2,2345432)
+INSERT INTO internamento(periodoInternamento,maxVisitantes,n_camas,especialidade,medico_respon,num_seq)
+VALUES ("2022-01-02",2,2,2,3456543)
+
+INSERT INTO relatorio(dat,tipoexame,parecerMedico,descricaoresultados,nsequencial,medicoresponsavel)
+VALUES ("2022-01-02","Otorrino","uhhhh nariz com macacos lol","macacos removidos",7664335793,"Doutor Obama Care")
+INSERT INTO relatorio(dat,tipoexame,parecerMedico,descricaoresultados,nsequencial,medicoresponsavel)
+VALUES ("2022-01-03","Colonoscopia","gelado preso","gelado removido",456789123,"Doutor Joe Biden")
+INSERT INTO relatorio(dat,tipoexame,parecerMedico,descricaoresultados,nsequencial,medicoresponsavel)
+VALUES ("2022-01-01","Urinologia","infeccção renal","rim removido",123456789,"Doutor Oh Klaoma")
+
+INSERT INTO sala(numerosala,piso,numeroExamesSimultaneo,tipo_geral)
+VALUES (29,2,3,"Internamento")
+INSERT INTO sala(numerosala,piso,numeroExamesSimultaneo,tipo_geral)
+VALUES (92,3,2,"Exame")
+INSERT INTO sala(numerosala,piso,numeroExamesSimultaneo,tipo_geral)
+VALUES (34,1,2,"Internamento")
+
+INSERT INTO salaexame(numerosala)
+VALUES (31)
+INSERT INTO salaexame(numerosala)
+VALUES (92)
+INSERT INTO salaexame(numerosala)
+VALUES (13)
+
+INSERT INTO salainternamento(numerosala)
+VALUES ("Quarto",1,2,29)
+INSERT INTO salainternamento(numerosala)
+VALUES ("Quarto",3,1,2)
+INSERT INTO salainternamento(numerosala)
+VALUES ("Quarto",2,3,34)
+
+
+INSERT INTO cama(numerocama)
+VALUES (20)
+INSERT INTO cama(numerocama)
+VALUES (12)
+INSERT INTO cama(numerocama)
+VALUES (30)
+
+INSERT INTO supervisor(NIF)
+VALUE (245687324)
+INSERT INTO supervisor(NIF)
+VALUE (123456789)
+INSERT INTO supervisor(NIF)
+VALUE (987654321)
+
+
+INSERT INTO pessoa(nome,data_nasc,nif,phonenumber,morada,genero,nic)
+VALUE ("Tó","1999-09-09",019283746,980230450,"Rua T","M",456123789)
+INSERT INTO pessoa(nome,data_nasc,nif,phonenumber,morada,genero,nic)
+VALUE ("Zé","1999-09-10",657483829,980230451,"Rua Z","M",456123790)
+INSERT INTO pessoa(nome,data_nasc,nif,phonenumber,morada,genero,nic)
+VALUE ("Armindo","1999-09-11",925678923,980230452,"Rua A","M",456123791)
+
+
+INSERT INTO utente(NIF)
+VALUE(019283746)
+INSERT INTO utente(NIF)
+VALUE(657483829)
+INSERT INTO utente(NIF)
+VALUE(925678923)
+
+INSERT INTO clTemHo (tipo,nipc)
+VALUES ("E",892553228)
+
+INSERT INTO clTemHo (tipo,nipc)
+VALUES ("N",892553228)
+
+INSERT INTO clTemHo (tipo,nipc)
+VALUES ("U",892553228)
+
+INSERT INTO ClTemSa (nipc,numsala)
+VALUES (443229004,2020)
+INSERT INTO ClTemSa (nipc,numsala)
+VALUES (32178945,2021)
+INSERT INTO ClTemSa (nipc,numsala)
+VALUES (23456789,2022)
+
+INSERT INTO SaTemCa (numerosala,numerocama)
+VALUES(20,34)
+INSERT INTO SaTemCa (numerosala,numerocama)
+VALUES(12,43)
+INSERT INTO SaTemCa (numerosala,numerocama)
+VALUES(30,12)
+
+INSERT INTO reResponsaveisEs(nsequencial,nome)
+VALUES(5423879,"T")
+INSERT INTO reResponsaveisEs(nsequencial,nome)
+VALUES(9183452,"E")
+INSERT INTO reResponsaveisEs(nsequencial,nome)
+VALUES(2456356,"M")
+
+INSERT INTO ClTrabalhaSu(nipc,nif)
+VALUES(999222111,443229004)
+INSERT INTO ClTrabalhaSu(nipc,nif)
+VALUES(333222111,123456789)
+INSERT INTO ClTrabalhaSu(nipc,nif)
+VALUES(111222333,567890123)
+
+
+INSERT INTO utTemMedico(utnif,mednif)
+VALUES(019283746,443229004)
+INSERT INTO utTemMedico(utnif,mednif)
+VALUES(657483829,123456789)
+INSERT INTO utTemMedico(utnif,mednif)
+VALUES(925678923,987654321)
+
+
+INSERT INTO meReportaSu(nifsu,nifmed)
+VALUES(245687324,443229004)
+INSERT INTO meReportaSu(nifsu,nifmed)
+VALUES(123456789,987654321)
+
+INSERT INTO clTemHo(tipo,nipc)
+VALUES("T",999222111)
+INSERT INTO clTemHo(tipo,nipc)
+VALUES("E",333222111)
+INSERT INTO clTemHo(tipo,nipc)
+VALUES("M",111222333)
+
+
+INSERT INTO internamento(periodoInternamento,maxVisitantes,n_camas,especialidade,medico_respon,n_sequencial)
+VALUES("8-1-2021", 2,22,"Colonoscopia" , " Dr. Alfronsio",2345267890)
+INSERT INTO internamento(periodoInternamento,maxVisitantes,n_camas,especialidade,medico_respon,n_sequencial)
+VALUES("8-1-2021", 3,33, "Urologia" , "Dra Trudilda",2345267891)
+INSERT INTO internamento(periodoInternamento,maxVisitantes,n_camas,especialidade,medico_respon,n_sequencial)
+VALUES("8-1-2021",4,44, "Ortopedia" ,"Dr Estrândifrôndio",2345267892)
+
+INSERT INTO fatura(cus_total,cus_ex,cus_d_i_e,dat_pag,n_sequencial)
+VALUES(233.25,130,50,"8-1-2021",2345267890)
+INSERT INTO fatura(cus_total,cus_ex,cus_d_i_e,dat_pag,n_sequencial)
+VALUES(322.25,310,70,"8-1-2022",2345267891)
+INSERT INTO fatura(cus_total,cus_ex,cus_d_i_e,dat_pag,n_sequencial)
+VALUES(323.25,140,60,"8-1-2023",2345267892)
+
+
+
+
+
+
