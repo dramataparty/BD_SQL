@@ -146,15 +146,6 @@ CREATE TABLE ClTrabalhaSu(
 /* -----------------------------------------------------------------------------*/
 
 
-/*exame - clinica*/
-CREATE TABLE exTemCl(
-    codigo NUMERIC(10),
-    nipc INTEGER(9),
-
-    PRIMARY KEY (codigo,nipc),
-    FOREIGN KEY (nipc) REFERENCES clinica(nipc) ON DELETE CASCADE,
-    FOREIGN KEY (codigo) REFERENCES exame(codigo) ON DELETE CASCADE
-);
 
 CREATE TABLE exame (
   sigla VARCHAR(10),
@@ -165,6 +156,16 @@ CREATE TABLE exame (
   periodo_tempo DATE,
 
   PRIMARY KEY (codigo)
+);
+
+/*exame - clinica*/
+CREATE TABLE exTemCl(
+    codigo NUMERIC(10),
+    nipc INTEGER(9),
+
+    PRIMARY KEY (codigo,nipc),
+    FOREIGN KEY (nipc) REFERENCES clinica(nipc) ON DELETE CASCADE,
+    FOREIGN KEY (codigo) REFERENCES exame(codigo) ON DELETE CASCADE
 );
 
 CREATE TABLE fatura (
@@ -178,13 +179,7 @@ CREATE TABLE fatura (
     FOREIGN KEY (n_squencial) REFERENCES internamento(n_sequencial) ON DELETE CASCADE
 );
 
-/*fatura - internamento */
-CREATE TABLE faEfetuaIn(
-    n_squencial NUMERIC(10),
 
-    PRIMARY KEY (n_squencial),
-    FOREIGN KEY (n_squencial) REFERENCES internamento(n_sequencial)
-)
 
 CREATE TABLE internamento(
     periodoInternamento DATE,
@@ -197,7 +192,13 @@ CREATE TABLE internamento(
     PRIMARY KEY (n_squencial)
 );
 
+/*fatura - internamento */
+CREATE TABLE faEfetuaIn(
+    n_squencial NUMERIC(10),
 
+    PRIMARY KEY (n_squencial),
+    FOREIGN KEY (n_squencial) REFERENCES internamento(n_sequencial)
+)
 
 /* -----------------------------------------------------------------------------*/
 
