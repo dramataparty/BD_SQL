@@ -211,9 +211,7 @@ CREATE pessoa (
     morada VARCHAR(40),
     genero VARCHAR(1),
     nic INTEGER(9)
-
     PRIMARY KEY (nif)
-
 );
 
 
@@ -350,7 +348,8 @@ CREATE TABLE especialidade(
 
 /*Unfinished*/
 /*relatorio - especialidade*/
-CREATE TABLE reResponsaveisEs(
+CREATE TABLE Responsaveis(
+    nome VARCHAR(20),
 
 );
 
