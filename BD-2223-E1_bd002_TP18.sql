@@ -58,6 +58,64 @@ CREATE TABLE cama (
 
 );
 
+
+/*Unsure*/
+CREATE TABLE supervisor(
+    NIF INTEGER(9)
+
+    PRIMARY KEY(NIF),
+    FOREIGN KEY(NIF) REFERENCES pessoas
+
+);
+
+
+CREATE TABLE relatorio(
+    dat DATE,
+    tipoexame VARCHAR(20),
+    parecerMedico VARCHAR(100),
+    descricaoresultados VARCHAR(200),
+    nsequencial INTEGER(10),
+    medicoresponsavel VARCHAR(30),    /*Unsure*/
+
+    PRIMARY KEY(nsequencial)
+);
+
+
+
+/* -----------------------------------------------------------------------------*/
+
+
+CREATE TABLE exame (
+  sigla VARCHAR(10),
+  tipo VARCHAR(40),
+  prec_normal NUMERIC(6,2),
+  codigo NUMERIC(10),
+  prec_hora_urg NUMERIC(6,2),
+  periodo_tempo DATE
+
+  PRIMARY KEY (codigo)
+)
+CREATE TABLE fatura (
+    cus_total NUMERIC(999),
+    cus_ex NUMERIC(999),
+    cus_d_i_e NUMERIC(999),
+    dat_pag DATE,
+    n_squencial NUMERIC(10)
+
+    PRIMARY KEY (n_squencial)
+)
+CREATE TABLE internamento(
+    periodoInternamento DATE,
+    maxVisitantes NUMERIC(2),
+    n_camas NUMERIC(2),
+    especialidade WARCHAR(40),
+    medico_respon WARCHAR(40)
+)
+
+
+/* -----------------------------------------------------------------------------*/
+
+
 CREATE TABLE clientes (
     nome   VARCHAR(40) UNIQUE,
     data_nasc DATE NOT NULL,
@@ -123,67 +181,6 @@ create TABLE tecnicos (
 
 );
 
-
-
-
-
-
-/*Unsure*/
-CREATE TABLE supervisor(
-    NIF INTEGER(9)
-
-    PRIMARY KEY(NIF),
-    FOREIGN KEY(NIF) REFERENCES pessoas
-
-);
-
-
-CREATE TABLE relatorio(
-    dat DATE,
-    tipoexame VARCHAR(20),
-    parecerMedico VARCHAR(100),
-    descricaoresultados VARCHAR(200),
-    nsequencial INTEGER(10),
-    medicoresponsavel VARCHAR(30),    /*Unsure*/
-
-    PRIMARY KEY(nsequencial)
-);
-
-
-
-/* -----------------------------------------------------------------------------*/
-
-
-CREATE TABLE exame (
-  sigla VARCHAR(10),
-  tipo VARCHAR(40),
-  prec_normal NUMERIC(6,2),
-  codigo NUMERIC(10),
-  prec_hora_urg NUMERIC(6,2),
-  periodo_tempo DATE
-
-  PRIMARY KEY (codigo)
-)
-CREATE TABLE fatura (
-    cus_total NUMERIC(999),
-    cus_ex NUMERIC(999),
-    cus_d_i_e NUMERIC(999),
-    dat_pag DATE,
-    n_squencial NUMERIC(10)
-
-    PRIMARY KEY (n_squencial)
-)
-CREATE TABLE internamento(
-    periodoInternamento DATE,
-    maxVisitantes NUMERIC(2),
-    n_camas NUMERIC(2),
-    especialidade WARCHAR(40),
-    medico_respon WARCHAR(40)
-)
-
-
-/* -----------------------------------------------------------------------------*/
-
 CREATE TABLE especialidades(
     nome VARCHAR(40) NOT NULL,
     sigla VARCHAR(10) NOT NULL,
@@ -191,4 +188,7 @@ CREATE TABLE especialidades(
     PRIMARY KEY(sigla)
 
 );
+
+
+
 /* comandos para inserir dados */ 
