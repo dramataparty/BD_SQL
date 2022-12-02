@@ -329,6 +329,7 @@ CREATE TABLE meReportaDC(
 /*Unfinished*/
 /*especialidade - medico*/
 CREATE TABLE esTemMedico(
+    nome VARCHAR(20)
 
 );
 
