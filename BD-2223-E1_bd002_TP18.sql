@@ -15,7 +15,7 @@ CREATE TABLE clinica (
 
 /*Unsure*/
 /*Clinica - Horario*/
-CREATE TABLE ClTemHo(
+CREATE TABLE clTemHo(
     
     tipo VARCHAR(1) NOT NULL,
     nipc INTEGER(9),
@@ -46,7 +46,7 @@ CREATE TABLE ClTemSa(
 
 );
 
-/*IS A is already done i think*/
+/*IS A salaexame/salainternamento*/
 CREATE TABLE sala (
     numerosala INTEGER(4),
     piso INTEGER(2),
@@ -110,20 +110,8 @@ CREATE TABLE supervisor(
     nif INTEGER(9)
 
     PRIMARY KEY(NIF),
-    FOREIGN KEY(NIF) REFERENCES pessoas
+    FOREIGN KEY(NIF) REFERENCES pessoas ON DELETE NO ACTION
 
-);
-
-
-CREATE TABLE relatorio(
-    dat DATE,
-    tipoexame VARCHAR(20),
-    parecerMedico VARCHAR(100),
-    descricaoresultados VARCHAR(200),
-    nsequencial INTEGER(10),
-    medicoresponsavel VARCHAR(30),    /*Unsure*/
-
-    PRIMARY KEY(nsequencial)
 );
 
 
@@ -189,78 +177,189 @@ CREATE TABLE internamento(
 
 
 
-CREATE TABLE clientes (
-    nome   VARCHAR(40) UNIQUE,
-    data_nasc DATE NOT NULL,
+/*IS A cliente/empregado*/
+CREATE pessoa (
+
+    nome VARCHAR(40),
+    data_nasc DATE,
     email VARCHAR(40),
     nif INTEGER(9),
-    phonum INTEGER(12),
-    morada VARCHAR(40), 
+    phonenumber INTEGER(12),
+    morada VARCHAR(40),
     genero VARCHAR(1),
-    tipo VARCHAR(10),
+    nic INTEGER(9),
 
-    PRIMARY KEY (nif),
-    PRIMARY KEY (tipo),
-    voluntario Boolean(1)
+    PRIMARY KEY (nif)
 
 );
 
-CREATE TABLE empregados (
-    nome   VARCHAR(40) UNIQUE,
-    data_nasc DATE NOT NULL,
-    data_inic DATE NOT NULL,
-    email VARCHAR(40),
+
+/*IS A pessoa*/
+/*IS A visitante/utente*/
+CREATE TABLE cliente (
+
     nif INTEGER(9),
-    phonum INTEGER(12),
-    morada VARCHAR(40), 
-    genero VARCHAR(1),
-    tipo VARCHAR(10),
 
     PRIMARY KEY (nif),
-    PRIMARY KEY (tipo)
+    FOREIGN KEY (nif) REFERENCES pessoa ON DELETE CASCADE
 
 );
 
 
-CREATE TABLE medicos (
-    nome   VARCHAR(40) UNIQUE,
-    data_nasc DATE NOT NULL,
-    data_inic DATE NOT NULL,
-    email VARCHAR(40),
+/*IS A cliente*/
+/*IS A voluntario/naovoluntario*/
+CREATE TABLE visitante (
+    
     nif INTEGER(9),
-    phonum INTEGER(12),
-    morada VARCHAR(40), 
-    genero VARCHAR(1),
-    tipo VARCHAR(10),
 
     PRIMARY KEY (nif),
-    FOREIGN KEY (tipo) REFERENCES empregados on DELETE CASCADE
-
+    FOREIGN KEY (nif) REFERENCES cliente ON DELETE CASCADE
 );
 
-CREATE TABLE tecnicos (
-    nome   VARCHAR(40) UNIQUE,
-    data_nasc DATE NOT NULL,
-    data_inic DATE NOT NULL,
-    email VARCHAR(40),
+
+/*IS A visitante*/
+CREATE TABLE voluntario(
+
+    nVisitasSolidarias INTEGER(4),
     nif INTEGER(9),
-    phonum INTEGER(12),
-    morada VARCHAR(40), 
-    genero VARCHAR(1),
-    tipo VARCHAR(10),
+
+    PRIMARY KEY(nif),
+    FOREIGN KEY (nif) REFERENCES visitante ON DELETE CASCADE
+);
+
+
+/*IS A visitante*/
+CREATE TABLE naovoluntario (
+
+    nif INTEGER(9),
+
+    PRIMARY KEY(nif),
+    FOREIGN KEY(nif) REFERENCES visitante ON DELETE CASCADE
+);
+
+/*naovoluntario - utente*/
+CREATE TABLE nvRelacaocomUt(
+    
+    nvnif INTEGER(9),
+    utnif INTEGER(9),
+
+    PRIMARY KEY(nvnif,utnif),
+    FOREIGN KEY (nvnif) REFERENCES naovoluntario(nif),
+    FOREIGN KEY (utnif) REFERENCES utente(nif)
+);
+
+/*IS A cliente*/
+CREATE TABLE utente (
+
+    nif INTEGER(9),
 
     PRIMARY KEY (nif),
-    FOREIGN KEY (tipo) REFERENCES empregados on DELETE CASCADE
+    FOREIGN KEY (nif) REFERENCES cliente ON DELETE CASCADE
 
 );
 
-CREATE TABLE especialidades(
-    nome VARCHAR(40) NOT NULL,
-    sigla VARCHAR(10) NOT NULL,
-    precoDiarioInternamento INTEGER(9) NOT NULL,
-    PRIMARY KEY(sigla)
+
+/*Utente - medico*/
+CREATE TABLE utTemMedico(
+
+    utnif INTEGER(9),
+    mednif INTEGER(9) NOT NULL,
+
+    PRIMARY KEY(utnif),
+    FOREIGN KEY (utnif) REFERENCES utente(nif),
+    FOREIGN KEY (mednif) REFERENCES medico(nif)
 
 );
+
+/*IS A pessoa*/
+/*IS A medico/empregado*/
+CREATE TABLE empregado (
+    
+    nif INTEGER(9),
+    datainicio DATE,
+
+    PRIMARY KEY (nif),
+    FOREIGN KEY (nif) REFERENCES pessoa ON DELETE CASCADE
+
+);
+
+
+/*IS A empregado*/
+CREATE TABLE medico (
+
+    nif INTEGER(9),
+
+    PRIMARY KEY (nif),
+    FOREIGN KEY (nif) REFERENCES empregado ON DELETE CASCADE
+
+);
+
+
+/*Unfinished*/
+/*medico - diretorclinico*/
+CREATE TABLE meReportaDC(
+
+);
+
+
+/*Unfinished*/
+/*especialidade - medico*/
+CREATE TABLE esTemMedico(
+
+);
+
+
+/*Unfinished*/
+CREATE TABLE especialidade(
+
+);
+
+
+/*Unfinished*/
+/*relatorio - especialidade*/
+CREATE TABLE reResponsaveisEs(
+
+);
+
+
+CREATE TABLE relatorio(
+    dat DATE,
+    tipoexame VARCHAR(20),
+    parecerMedico VARCHAR(100),
+    descricaoresultados VARCHAR(200),
+    nsequencial INTEGER(10),
+    medicoresponsavel INTEGER(9),    /*Unsure*/
+
+    PRIMARY KEY(nsequencial)
+    FOREIGN KEY (medicoresponsavel) REFERENCES medico(nif) ON DELETE NO ACTION 
+);
+
+
+
+/*IS A empregado*/
+CREATE TABLE tecnico (
+    
+    nif INTEGER(9),
+    datainiciohab DATE,
+    habilitacao VARCHAR(30),
+
+    PRIMARY KEY (nif),
+    FOREIGN KEY (nif) REFERENCES empregado ON DELETE CASCADE
+
+);
+
+
+/*Unsure*/
+/*IS A empregado*/
+CREATE TABLE diretorclinico (
+
+    nif INTEGER(9),
+
+    PRIMARY KEY (nif),
+    FOREIGN KEY (nif) REFERENCES empregado ON DELETE CASCADE
+);
+
+
 
 
 
