@@ -1,23 +1,25 @@
 /* ON DELETE CASCADE = UM PREDIO TEM QUARTOS, SE ELIMINARES UM PREDIO, OS QUARTOS DO PREDIO TAMBEM SE ELIMINAM*/
 
+/* ON DELETE CASCADE = UM PREDIO TEM QUARTOS, SE ELIMINARES UM PREDIO, OS QUARTOS DO PREDIO TAMBEM SE ELIMINAM*/
+
 SET FOREIGN_KEY_CHECKS=0;
-DROP TABLE IF EXISTS clinica
-DROP TABLE IF EXISTS clTemHo
-DROP TABLE IF EXISTS horario
-DROP TABLE IF EXISTS CLTemSa
-DROP TABLE IF EXISTS SaTemCa
-DROP TABLE IF EXISTS exame
-DROP TABLE IF EXISTS salainternamento
-DROP TABLE IF EXISTS salaexame
-DROP TABLE IF EXISTS fatura
-DROP TABLE IF EXISTS internamento
-DROP TABLE IF EXISTS relatorio
-DROP TABLE IF EXISTS tecnico
-DROP TABLE IF EXISTS medico
-DROP TABLE IF EXISTS especialidade
-DROP TABLE IF EXISTS diretorclinico
-DROP TABLE IF EXISTS reResponsaveis
-DROP TABLE IF EXISTS meReportaDC
+DROP TABLE IF EXISTS clinica;
+DROP TABLE IF EXISTS clTemHo;
+DROP TABLE IF EXISTS horario;
+DROP TABLE IF EXISTS CLTemSa;
+DROP TABLE IF EXISTS SaTemCa;
+DROP TABLE IF EXISTS exame;
+DROP TABLE IF EXISTS salainternamento;
+DROP TABLE IF EXISTS salaexame;
+DROP TABLE IF EXISTS fatura;
+DROP TABLE IF EXISTS internamento;
+DROP TABLE IF EXISTS relatorio;
+DROP TABLE IF EXISTS tecnico;
+DROP TABLE IF EXISTS medico;
+DROP TABLE IF EXISTS especialidade;
+DROP TABLE IF EXISTS diretorclinico;
+DROP TABLE IF EXISTS reResponsaveis;
+DROP TABLE IF EXISTS meReportaDC;
 SET FOREIGN_KEY_CHECKS=1;
 
 
@@ -201,7 +203,7 @@ CREATE TABLE internamento(
 
 
 /*IS A cliente/empregado*/
-CREATE TABLE pessoa (
+CREATE pessoa (
 
     nome VARCHAR(40),
     data_nasc DATE,
@@ -331,7 +333,6 @@ CREATE TABLE meReportaDC(
 /*Unfinished*/
 /*especialidade - medico*/
 CREATE TABLE esTemMedico(
-    nome VARCHAR(20),
 
 );
 
@@ -351,12 +352,7 @@ CREATE TABLE especialidade(
 
 /*Unfinished*/
 /*relatorio - especialidade*/
-CREATE TABLE re_Responsaveis_Es(
-    nome_espec VARCHAR(40) REFERENCES especialidade(nome),
-    num_seq INTEGER(10) REFERENCES relatorio(nsequencial)
-
-
-
+CREATE TABLE reResponsaveisEs(
 
 );
 
@@ -397,8 +393,6 @@ CREATE TABLE diretorclinico (
     PRIMARY KEY (nif),
     FOREIGN KEY (nif) REFERENCES empregado(nif) ON DELETE CASCADE
 );
-
-
 
 
 
