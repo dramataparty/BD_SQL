@@ -66,8 +66,10 @@ CREATE TABLE clientes (
     phonum INTEGER(12),
     morada VARCHAR(40), 
     genero VARCHAR(1),
+    tipo VARCHAR(10),
 
-    PRIMARY KEY (nif)
+    PRIMARY KEY (nif),
+    PRIMARY KEY (tipo)
 
 );
 
@@ -80,10 +82,49 @@ create TABLE empregados (
     phonum INTEGER(12),
     morada VARCHAR(40), 
     genero VARCHAR(1),
+    tipo VARCHAR(10),
 
-    PRIMARY KEY (nif)
+    PRIMARY KEY (nif),
+    PRIMARY KEY (tipo)
 
 );
+
+
+create TABLE medicos (
+    nome   VARCHAR(40) UNIQUE,
+    data_nasc DATE NOT NULL,
+    data_inic DATE NOT NULL,
+    email VARCHAR(40),
+    nif INTEGER(9),
+    phonum INTEGER(12),
+    morada VARCHAR(40), 
+    genero VARCHAR(1),
+    tipo VARCHAR(10),
+
+    PRIMARY KEY (nif),
+    FOREIGN KEY (tipo) REFERENCES empregados on DELETE CASCADE
+
+);
+
+create TABLE tecnicos (
+    nome   VARCHAR(40) UNIQUE,
+    data_nasc DATE NOT NULL,
+    data_inic DATE NOT NULL,
+    email VARCHAR(40),
+    nif INTEGER(9),
+    phonum INTEGER(12),
+    morada VARCHAR(40), 
+    genero VARCHAR(1),
+    tipo VARCHAR(10),
+
+    PRIMARY KEY (nif),
+    FOREIGN KEY (tipo) REFERENCES empregados on DELETE CASCADE
+
+);
+
+
+
+
 
 
 /*Unsure*/
