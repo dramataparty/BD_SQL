@@ -247,9 +247,8 @@ CREATE TABLE especialidade(
     parecer VARCHAR(122),
     numseq NUMERIC(3),
     resdec VARCHAR(122),
-
-
-
+    
+    PRIMARY KEY (nome)
 );
 
 
@@ -517,4 +516,64 @@ CREATE TABLE meTemEs(
     PRIMARY KEY (nome,nifmed),
     FOREIGN KEY (nome) REFERENCES especialidade(nome),
     FOREIGN KEY (nifmed) REFERENCES medico(nif)
+);
+
+/*relatorio - especialidade*/
+CREATE TABLE reResponsaveisEs(
+    nsequencial INTEGER(10),
+    nome VARCHAR(10),
+
+    PRIMARY KEY (nsequencial,nome),
+    FOREIGN KEY (nome) REFERENCES especialidade(nome),
+    FOREIGN Key (nsequencial) REFERENCES relatorio(nsequencial)
+);
+
+/*relatorio - exame*/
+CREATE TABLE reRealizacaoEx(
+    nsequencial INTEGER(10),
+    codigo INTEGER(10),
+
+    PRIMARY KEY (nsequencial,codigo),
+    FOREIGN KEY (codigo) REFERENCES exame(codigo),
+    FOREIGN Key (nsequencial) REFERENCES relatorio(nsequencial)
+);
+
+/*medico - exame*/
+CREATE TABLE mePrescreveEx(
+    nif INTEGER(9),
+    codigo INTEGER(10),
+
+    PRIMARY KEY (nif,codigo),
+    FOREIGN KEY (nif) REFERENCES medico(nif),
+    FOREIGN KEY (codigo) REFERENCES exame(codigo)
+);
+
+/*tecnico - exame*/
+CREATE TABLE teFazEx(
+    codigo INTEGER(10),
+    nif INTEGER(9),
+
+    PRIMARY KEY (nif,codigo),
+    FOREIGN KEY (nif) REFERENCES tecnico(nif),
+    FOREIGN KEY (codigo) REFERENCES exame(codigo)
+);
+
+/*sala de exame - exame*/
+CREATE TABLE sExRealizadosEx(
+    numerosala INTEGER(4),
+    codigo INTEGER(10),
+
+    PRIMARY KEY (nif,numerosala),
+    FOREIGN KEY (numerosala) REFERENCES salaexame(numerosala),
+    FOREIGN KEY (codigo) REFERENCES exame(codigo)
+);
+
+/*sala de Internamento - exame*/
+CREATE TABLE sInRealizadosEx(
+    numerosala INTEGER(4),
+    codigo INTEGER(10),
+
+    PRIMARY KEY (nif,numerosala),
+    FOREIGN KEY (numerosala) REFERENCES salainternamento(numerosala),
+    FOREIGN KEY (codigo) REFERENCES exame(codigo)
 );
