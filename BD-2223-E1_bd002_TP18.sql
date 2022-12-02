@@ -529,6 +529,6 @@ VALUES (34);
 INSERT INTO horario(tipo, horainicio,horafim)
 VALUES ("E",14,16);
 INSERT INTO empregado (NIF,datainicio)
-VALUES (443229004,2020);
-INSERT INTO Supervisor (nipc,numsala)
-VALUES (443229004,2020);
+VALUES (443229004,"2022-01-02");
+INSERT INTO Supervisor(NIF)
+VALUES (443229004);
