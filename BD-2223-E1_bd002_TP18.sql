@@ -58,6 +58,32 @@ CREATE TABLE cama (
 
 );
 
+CREATE TABLE clientes (
+    nome   VARCHAR(40) UNIQUE,
+    data_inaug DATE NOT NULL,
+    email VARCHAR(40),
+    nif INTEGER(9),
+    phonum INTEGER(12),
+    morada VARCHAR(40), 
+    genero VARCHAR(1),
+
+    PRIMARY KEY (nif)
+
+);
+
+create TABLE empregados (
+    nome   VARCHAR(40) UNIQUE,
+    data_inaug DATE NOT NULL,
+    email VARCHAR(40),
+    nif INTEGER(9),
+    phonum INTEGER(12),
+    morada VARCHAR(40), 
+    genero VARCHAR(1),
+
+    PRIMARY KEY (nif)
+
+);
+
 
 /*Unsure*/
 CREATE TABLE supervisor(
@@ -86,28 +112,31 @@ CREATE TABLE relatorio(
 
 
 CREATE TABLE exame (
-  sigla VARCHAR(10)
-  tipo VARCHAR(40)
-  prec_normal NUMERIC(6,2)
-  codigo NUMERIC(10)
-  prec_hora_urg NUMERIC(6,2)
+  sigla VARCHAR(10),
+  tipo VARCHAR(40),
+  prec_normal NUMERIC(6,2),
+  codigo NUMERIC(10),
+  prec_hora_urg NUMERIC(6,2),
   periodo_tempo DATE
 
   PRIMARY KEY (codigo)
+)
 CREATE TABLE fatura (
     cus_total NUMERIC(999),
     cus_ex NUMERIC(999),
     cus_d_i_e NUMERIC(999),
-    dat_pag DATE
+    dat_pag DATE,
     n_squencial NUMERIC(10)
 
     PRIMARY KEY (n_squencial)
+)
 CREATE TABLE internamento(
     periodoInternamento DATE,
     maxVisitantes NUMERIC(2),
-    n_camas NUMERIC(2)
-    especialidade WARCHAR(40)
+    n_camas NUMERIC(2),
+    especialidade WARCHAR(40),
     medico_respon WARCHAR(40)
+)
 
 
 /* -----------------------------------------------------------------------------*/
