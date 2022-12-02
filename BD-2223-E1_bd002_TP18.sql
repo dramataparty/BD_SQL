@@ -131,34 +131,57 @@ CREATE TABLE relatorio(
 /* -----------------------------------------------------------------------------*/
 
 
+/*exame - clinica*/
+CREATE TABLE exTemCl(
+    codigo NUMERIC(10),
+    nipc INTEGER(9),
+
+    PRIMARY KEY (codigo,nipc),
+    FOREIGN KEY (nipc) REFERENCES clinica ON DELETE CASCADE,
+    FOREIGN KEY (codigo) REFERENCES exame ON DELETE CASCADE
+);
+
 CREATE TABLE exame (
   sigla VARCHAR(10),
   tipo VARCHAR(40),
   prec_normal NUMERIC(6,2),
   codigo NUMERIC(10),
   prec_hora_urg NUMERIC(6,2),
-  periodo_tempo DATE
+  periodo_tempo DATE,
 
   PRIMARY KEY (codigo)
 );
 
 CREATE TABLE fatura (
-    cus_total NUMERIC(999),
-    cus_ex NUMERIC(999),
-    cus_d_i_e NUMERIC(999),
+    cus_total NUMERIC(6,2),
+    cus_ex NUMERIC(6,2),
+    cus_d_i_e NUMERIC(6,2),
     dat_pag DATE,
-    n_squencial NUMERIC(10)
+    n_squencial NUMERIC(10),
 
-    PRIMARY KEY (n_squencial)
+    PRIMARY KEY (n_squencial),
+    FOREIGN KEY (n_squencial) REFERENCES internamento ON DELETE CASCADE
 );
+
+/*fatura - internamento */
+CREATE TABLE faEfetuaIn(
+    n_squencial NUMERIC(10),
+
+    PRIMARY KEY (n_squencial),
+    FOREIGN KEY (n_squencial) REFERENCES internamento
+)
 
 CREATE TABLE internamento(
     periodoInternamento DATE,
     maxVisitantes NUMERIC(2),
     n_camas NUMERIC(2),
     especialidade VARCHAR(40),
-    medico_respon VARCHAR(40)
+    medico_respon VARCHAR(40),
+    n_squencial NUMERIC(10),
+
+    PRIMARY KEY (n_squencial)
 );
+
 
 
 /* -----------------------------------------------------------------------------*/
