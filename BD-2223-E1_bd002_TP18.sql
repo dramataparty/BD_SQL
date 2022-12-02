@@ -201,7 +201,7 @@ CREATE TABLE internamento(
 
 
 /*IS A cliente/empregado*/
-CREATE pessoa (
+CREATE  TABLE pessoa (
 
     nome VARCHAR(40),
     data_nasc DATE,
