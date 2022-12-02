@@ -528,7 +528,7 @@ INSERT INTO cama (numerocama)
 VALUES (34);
 INSERT INTO horario(tipo, horainicio,horafim)
 VALUES ("E",14,16);
-INSERT INTO ClTemSa (nipc,numsala)
+INSERT INTO empregado (NIF,datainicio)
 VALUES (443229004,2020);
-INSERT INTO ClTemSa (nipc,numsala)
+INSERT INTO Supervisor (nipc,numsala)
 VALUES (443229004,2020);
